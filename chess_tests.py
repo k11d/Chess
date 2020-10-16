@@ -13,8 +13,7 @@ timing_log = {}
 ####
 
 class Movement:
-    CELL_WIDTH = 10
-    CELL_HEIGHT = 10
+    CELL_DIMENSIONS = [10, 10]
     UP = Vec2(0, -1)
     DOWN = Vec2(0,  1)
     RIGHT = Vec2(1,  0)
@@ -22,15 +21,16 @@ class Movement:
 
     _UNDEFINED_START = Vec2(inf, inf)
 
-    def __init__(self, start=None, cwidth=CELL_WIDTH, cheight=CELL_HEIGHT) -> None:
+    def __init__(self, start=None, cell_dimensions=CELL_DIMENSIONS) -> None:
         if start is None:
             self.start_position = self._UNDEFINED_START
         else:
             self.start_position = start
-        self.UP_real = self.UP * cheight
-        self.DOWN_real = self.DOWN * cheight
-        self.RIGHT_real = self.RIGHT * cwidth
-        self.LEFT_real = self.LEFT * cwidth
+        self.cell_dimensions = cell_dimensions
+        self.UP_real = self.UP * self.cell_dimensions.x
+        self.DOWN_real = self.DOWN * self.cell_dimensions.x
+        self.RIGHT_real = self.RIGHT * self.cell_dimensions.y
+        self.LEFT_real = self.LEFT * self.cell_dimensions.y
 
     def _mv(self, direction_unit_vector, n):
         def inner(start):
@@ -65,6 +65,12 @@ class ChessPiece:
     @classmethod
     def as_black(cls, position):
         return cls(position, "Black")
+    
+    def __repr__(self):
+        return self.__str__()
+    
+    def __str__(self):
+        return f"{self.color} {self.__class__.__name__}"
 
     def __init__(self, start_position, color) -> None:
         self.color = color
@@ -72,7 +78,6 @@ class ChessPiece:
             self.position = Vec2(*start_position)
         else:
             self.position = start_position
-        # print(f"Created a new {self.color} {self.__class__.__qualname__} instance at {self.position}")
 
     def show_methods(self):
         print("\n".join(s for s in Movement().__dir__() if not s.startswith('_')))
@@ -104,6 +109,8 @@ class Pawn(ChessPiece):
         kept = []
         for p in moves:
             print(p)
+            
+
     
 def new_game(start_positions=STARTING_POSITIONS):
     """start_positions : Dict[str, Dict[str, List[List[int]]]]"""
@@ -147,8 +154,9 @@ def new_game(start_positions=STARTING_POSITIONS):
             board[pos] = None
     return board
 
+
 @call_timer(timing_log)
-def white_to_pick(gboard):
+def board_analyzer(gboard):
     allys = {}
     enemy = {}
     free = []
@@ -159,15 +167,22 @@ def white_to_pick(gboard):
                     enemy[pos] = gboard[pos]
                 elif gboard[pos].color == "White":
                     allys[pos] = gboard[pos]
+            else:
+                free.append(pos)
         else:
             free.append(pos)
-    print("Mine:", allys)
-    print("#"*8)
-    print("Enemy's:", enemy)
-    print("#"*8)
-    print("Free: ", free)
-    print("#"*8)
+    return allys, enemy, free
 
+
+@call_timer(timing_log)
+def white_to_pick(game_board):
+    a,e,f = board_analyzer(game_board)
+    print("Mine:", a)
+    print("#"*8)
+    print("Enemy's:", e)
+    print("#"*8)
+    print("Free: ", f)
+    print("#"*8)
 
 # pwhite = Pawn.as_white(Vec2(0,6))
 # pblack = Pawn.as_black(Vec2(0,1))
@@ -179,5 +194,4 @@ def white_to_pick(gboard):
 # m = Movement()
 
 game_board = new_game()
-# print(game_board)
 white_to_pick(game_board)
