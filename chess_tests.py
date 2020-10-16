@@ -6,6 +6,10 @@ from math import inf
 from constants import *
 from vector import Vec2
 
+
+from utils import call_timer
+timing_log = {}
+
 ####
 
 class Movement:
@@ -68,7 +72,7 @@ class ChessPiece:
             self.position = Vec2(*start_position)
         else:
             self.position = start_position
-        print(f"Created a new {self.color} {self.__class__.__qualname__} instance at {self.position}")
+        # print(f"Created a new {self.color} {self.__class__.__qualname__} instance at {self.position}")
 
     def show_methods(self):
         print("\n".join(s for s in Movement().__dir__() if not s.startswith('_')))
@@ -92,11 +96,11 @@ class Pawn(ChessPiece):
         if self.color == "White":
             moves.append(self.up(self.position))
             if self.never_moved:
-                moves.append(self.up(self.up(self.position)))
+                moves.append(self.up(self.position, 2))
         else:
             moves.append(self.down())
             if self.never_moved:
-                moves.append(self.down(self.down(self.position)))
+                moves.append(self.down(self.position, 2))
         kept = []
         for p in moves:
             print(p)
@@ -123,8 +127,6 @@ def new_game(start_positions=STARTING_POSITIONS):
                     white_pieces[pos] = King(pos, pcolor)
                 elif pname == "Knight":
                     white_pieces[pos] = Knight(pos, pcolor)
-    print(white_pieces)
-    print(black_pieces)
     # constuct a board
     board = {}
     for pos in white_pieces:
@@ -139,27 +141,32 @@ def new_game(start_positions=STARTING_POSITIONS):
                 yield Vec2(x,y)
     for pos in _2dgrid():
         if pos in board:
-            print(f"{board[pos]} is at {pos}")
+            # print(f"{board[pos]} is at {pos}")
+            continue
         else:
             board[pos] = None
     return board
 
+@call_timer(timing_log)
 def white_to_pick(gboard):
-    allys = []
-    enemy = []
+    allys = {}
+    enemy = {}
     free = []
     for pos in gboard:
         if gboard[pos]:
             if hasattr(gboard[pos], "color"):
                 if gboard[pos].color == "Black":
-                    enemy.append(pos)
+                    enemy[pos] = gboard[pos]
                 elif gboard[pos].color == "White":
-                    allys.append(pos)
-                else:
-                    free.append(pos)
+                    allys[pos] = gboard[pos]
+        else:
+            free.append(pos)
     print("Mine:", allys)
+    print("#"*8)
     print("Enemy's:", enemy)
+    print("#"*8)
     print("Free: ", free)
+    print("#"*8)
 
 
 # pwhite = Pawn.as_white(Vec2(0,6))
@@ -172,4 +179,5 @@ def white_to_pick(gboard):
 # m = Movement()
 
 game_board = new_game()
-print(game_board)
+# print(game_board)
+white_to_pick(game_board)
