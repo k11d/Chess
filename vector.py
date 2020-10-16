@@ -1,8 +1,15 @@
 
 class Vec2:
-    def __init__(self, x=0, y=0) -> None:
-        self.x = x
-        self.y = y
+    """
+    2D vector funcname
+    """
+    def __init__(self, xv, y) -> None:
+        try:
+            self.x = xv.x
+            self.y = xv.y
+        except AttributeError:
+            self.x = xv
+            self.y = y
     def __add__(self, v):
         try:
             return Vec2(self.x + v.x, self.y + v.y)
