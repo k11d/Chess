@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
 import itertools
+from pysrc.pieces import ChessPiece
 import random
-from itertools import chain, groupby
+from itertools import chain
 from pieces import Movement
 from vector import Vec2
 
@@ -83,7 +84,7 @@ class Game:
         for pos in _2dgrid():
             if not (pos in self._board):
                 self._board[pos] = None
-        return self._board
+        return self, self._board
 
     @call_timer(timing_log)
     def board_analyzer(self, gboard):
@@ -109,8 +110,7 @@ class Game:
         return allys, enemy, free
 
     @call_timer(timing_log)
-    def player_to_pick(self, game_board, method=Movement.LEAST_MOVES):
-
+    def player_pick_piece(self, game_board, method=Movement.LEAST_MOVES):
         # parse the game board
         a,e,f = self.board_analyzer(game_board)
         moves_by_pos = {}
@@ -141,11 +141,14 @@ class Game:
                     ch_moves_count = len(moves_by_pos[pos])
             return ch_piece, moves_by_pos[ch_piece.position]
         
+    @call_timer(timing_log)
     def player_play(self, board):
-        piece, moves = self.player_to_pick(board)
+        piece, moves = self.player_pick_piece(board)
         fromp = piece.position
         top = random.choice(moves)
         piece.position = top
+        if captured := board[top]:
+            print(f"Captured {captured}")
         board[top], board[fromp] = board[fromp], None
         if self._now_playing == "White":
             self._now_playing = "Black"
@@ -153,11 +156,10 @@ class Game:
             self._now_playing = "White"
 
 
-game = Game()
-game_board = game.new_game()
+game, board = Game().new_game()
 while True:
-    game.player_play(game_board)
-    game.show_board(game_board)
+    game.player_play(board)
+    game.show_board(board)
     try:
         input("ENTER to continue - CTRL-C to quit")
     except KeyboardInterrupt:
