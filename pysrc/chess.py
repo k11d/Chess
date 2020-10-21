@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
+import itertools
+import random
 from itertools import chain, groupby
-from pysrc.pieces import Movement
+from pieces import Movement
 from vector import Vec2
 
-from constants import *
-from pieces import Pawn, Bishop, Rook, Knight, King, Queen
+from constants import STARTING_POSITIONS
+from pieces import Pawn, Bishop, Rook, Knight, King, Queen, Play
 from utils import call_timer, TimingData
 
 timing_log = TimingData()
@@ -15,94 +17,149 @@ timing_log = TimingData()
 
 #####
 
-@call_timer(timing_log)
-def new_game(start_positions=STARTING_POSITIONS):
-    """start_positions : Dict[str, Dict[str, List[List[int]]]]"""
+class Game:
 
-    # initiate sets of pieces
-    white_pieces = {}
-    black_pieces = {}
-    for pcolor in start_positions:
-        for pname, positions in start_positions[pcolor].items():
-            for pos in positions:
-                pos = Vec2(pos[0], pos[1])
-                if pname == "Pawn":
-                    white_pieces[pos] = Pawn(pos, pcolor)
-                elif pname == "Rook":
-                    white_pieces[pos] = Rook(pos, pcolor)
-                elif pname == "Bishop":
-                    white_pieces[pos] = Bishop(pos, pcolor)
-                elif pname == "Queen":
-                    white_pieces[pos] = Queen(pos, pcolor)
-                elif pname == "King":
-                    white_pieces[pos] = King(pos, pcolor)
-                elif pname == "Knight":
-                    white_pieces[pos] = Knight(pos, pcolor)
-    # constuct a board
-    board = {}
-    for pos in white_pieces:
-        board[pos] = white_pieces[pos]
-    for pos in black_pieces:
-        board[pos] = black_pieces[pos]
+    DEBUG = False
+
+    def __init__(self) -> None:
+        self._board = {}
+        self._now_playing = "White"
+
+    def __repr__(self) -> str:
+        s = ""
+        for y in range(8):
+            for x in range(8):
+                bp = self._board[Vec2(x,y)]
+                if bp:
+                    if bp.__class__.__name__ == "Knight":
+                        if bp.color == "Black":
+                            s += "n "
+                        else:
+                            s += "N "
+                    else:
+                        if bp.color == "Black":
+                            s += bp.__class__.__name__[0].lower() + " "
+                        else:
+                            s += bp.__class__.__name__[0] + " "
+                else:
+                    s += "- "
+            s += " \n"
+        return s
+
+    def show_board(self, board) -> None:
+        print(self.__repr__())
     
-    # fill up remaining positions with empty placeholders
-    def _2dgrid():
-        return (Vec2(x,y)
-                for y in range(8)
-                for x in range(8)
-        )
+    def get_at(self, pos):
+        return self._board[pos]
 
-    for pos in _2dgrid():
-        if not (pos in board):
-            board[pos] = None
-    return board
+    def new_game(self, start_positions=STARTING_POSITIONS):
+        """start_positions : Dict[str, Dict[str, List[List[int]]]]"""
 
+        # initiate sets of pieces
+        for pcolor in start_positions:
+            for pname, positions in start_positions[pcolor].items():
+                for pos in positions:
+                    pos = Vec2(pos[0], pos[1])
+                    if pname == "Pawn":
+                        self._board[pos] = Pawn(pos, pcolor)
+                    elif pname == "Rook":
+                        self._board[pos] = Rook(pos, pcolor)
+                    elif pname == "Bishop":
+                        self._board[pos] = Bishop(pos, pcolor)
+                    elif pname == "Queen":
+                        self._board[pos] = Queen(pos, pcolor)
+                    elif pname == "King":
+                        self._board[pos] = King(pos, pcolor)
+                    elif pname == "Knight":
+                        self._board[pos] = Knight(pos, pcolor)
 
-@call_timer(timing_log)
-def board_analyzer(gboard):
-    allys = {}
-    enemy = {}
-    free = {}
-    for pos in gboard:
-        if gboard[pos]:
-            if hasattr(gboard[pos], "color"):
-                if gboard[pos].color == "Black":
+        # fill up remaining positions with empty placeholders
+        def _2dgrid():
+            return (Vec2(x,y)
+                    for y in range(8)
+                    for x in range(8)
+            )
+
+        for pos in _2dgrid():
+            if not (pos in self._board):
+                self._board[pos] = None
+        return self._board
+
+    @call_timer(timing_log)
+    def board_analyzer(self, gboard):
+        allys = {}
+        enemy = {}
+        free = {}
+        for pos in gboard:
+            if gboard[pos] and hasattr(gboard[pos], "color"):
+                piece_color = gboard[pos].color
+                if (piece_color != self._now_playing):
                     enemy[pos] = gboard[pos]
-                elif gboard[pos].color == "White":
+                else:
                     allys[pos] = gboard[pos]
             else:
                 free[pos] = None
+        if self.DEBUG:
+            print("Mine:", allys)
+            print("#"*24)
+            print("Enemy's:", enemy)
+            print("#"*24)
+            print("Free: ", free)
+            print("#"*24)
+        return allys, enemy, free
+
+    @call_timer(timing_log)
+    def player_to_pick(self, game_board, method=Movement.LEAST_MOVES):
+
+        # parse the game board
+        a,e,f = self.board_analyzer(game_board)
+        moves_by_pos = {}
+        piece_by_pos = a
+        for pos in a:
+            try:
+                all_mvs = a[pos].available_moves(a,e,f)
+                if all_mvs:
+                    moves_by_pos[pos] = all_mvs
+            except Exception as ex:
+                print(ex)
+                continue
+        
+        # choose piece to play
+        if method == Movement.RANDOM:
+            p = random.choice([*moves_by_pos.keys()])
+            return piece_by_pos[p], moves_by_pos[p]
+
+        elif method == Movement.LEAST_MOVES:
+            # choose piece with the least moves
+            ch_moves_count = 0
+            ch_piece = None
+            for pos in piece_by_pos:
+                if ch_piece and ch_moves_count == 1:
+                    break
+                if len(moves_by_pos[pos]) > 0 and len(moves_by_pos[pos]) < ch_moves_count or ch_moves_count == 0:
+                    ch_piece = piece_by_pos[pos] 
+                    ch_moves_count = len(moves_by_pos[pos])
+            return ch_piece, moves_by_pos[ch_piece.position]
+        
+    def player_play(self, board):
+        piece, moves = self.player_to_pick(board)
+        fromp = piece.position
+        top = random.choice(moves)
+        piece.position = top
+        board[top], board[fromp] = board[fromp], None
+        if self._now_playing == "White":
+            self._now_playing = "Black"
         else:
-            free[pos] = None
-    print("Mine:", allys)
-    print("#"*24)
-    print("Enemy's:", enemy)
-    print("#"*24)
-    print("Free: ", free)
-    print("#"*24)
-    return allys, enemy, free
+            self._now_playing = "White"
 
 
-@call_timer(timing_log)
-def white_to_pick(game_board):
-    a,e,f = board_analyzer(game_board)
-    moves_by_piece = {}
-    for pos in a:
-        try:
-            moves_by_piece[pos] = a[pos].available_moves()
-        except Exception as e:
-            print(e)
-            continue
-    print(moves_by_piece)
-    print("####\n#a: ", a, "\n####\n#")
-
-
-
-game_board = new_game()
-white_to_pick(game_board)
-# print(game_board[Vec2(3,7)].available_moves())
-# print(game_board[Vec2(2,7)].available_moves())
-print(game_board[Vec2(4,7)].available_moves())
-
-
-m = Movement(game_board[Vec2(3,7)].position)
+game = Game()
+game_board = game.new_game()
+while True:
+    game.player_play(game_board)
+    game.show_board(game_board)
+    try:
+        input("ENTER to continue - CTRL-C to quit")
+    except KeyboardInterrupt:
+        print()
+        break
