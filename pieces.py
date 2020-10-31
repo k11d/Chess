@@ -171,7 +171,6 @@ class Rook(ChessPiece):
         return super().available_moves(moves)
 
 
-
 class Queen(ChessPiece):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -180,7 +179,6 @@ class Queen(ChessPiece):
     
     def available_moves(self, allies, enemies, free):
         return super().available_moves(self._rook.available_moves(allies, enemies, free) + self._bishop.available_moves(allies, enemies, free))
-
 
 
 class King(ChessPiece):
@@ -193,7 +191,6 @@ class King(ChessPiece):
         candidates = super().available_moves([m.left(), m.right(), m.up(), m.down(),
                 m.right_down(), m.right_up(), m.left_up(), m.left_down()])
         
-
 
 class Bishop(ChessPiece):
 
@@ -254,7 +251,6 @@ class Bishop(ChessPiece):
         return super().available_moves(moves)
 
 
-
 class Knight(ChessPiece):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -288,7 +284,6 @@ class Knight(ChessPiece):
                 if vec not in allies]
 
 
-
 class Pawn(ChessPiece):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -309,4 +304,3 @@ class Pawn(ChessPiece):
                 if self.never_moved and m.is_in_bound(m.down(m.down())):
                     moves.append(m.down(2))
         return super().available_moves(moves)
-

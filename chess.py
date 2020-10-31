@@ -27,7 +27,6 @@ class Game:
         self.white_captured = []
         self.black_captured = []
 
-
     def __repr__(self) -> str:
         s = ""
         for y in range(8):
@@ -77,16 +76,10 @@ class Game:
                         self._board[pos] = Knight(pos, pcolor)
 
         # fill up remaining positions with empty placeholders
-        def _2dgrid():
-            return (Vec2(x,y)
-                    for y in range(8)
-                    for x in range(8)
-            )
-
-        for pos in _2dgrid():
+        for pos in (Vec2(x,y) for y in range(8) for x in range(8)):
             if not (pos in self._board):
                 self._board[pos] = None
-        return self, self._board
+        return self._board
 
     @call_timer(timing_log)
     def board_analyzer(self, gboard):
@@ -151,7 +144,7 @@ class Game:
         fromp = piece.position
         top = random.choice(moves)
         piece.position = top
-        if captured := board[top]:
+        if (captured := board[top]):
             if self._now_playing == "White":
                 self.white_captured.append(captured)
             else:
@@ -162,7 +155,8 @@ class Game:
         else:
             self._now_playing = "White"
 
-game, board = Game().new_game()
+game = Game()
+board = game.new_game()
 while True:
     game.player_play(board)
     game.show_board(board)
@@ -173,3 +167,4 @@ while True:
     except KeyboardInterrupt:
         print()
         break
+
