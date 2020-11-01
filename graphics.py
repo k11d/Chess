@@ -1,19 +1,20 @@
+#pylint: disable=no-member
 import itertools as it
 import sys, pygame
 pygame.init()
+from tiles import GenTiles
 
-size = width, height = 1800, 900
-speed = [1, 1]
-black = [0, 0, 0]
-white = [255,255,255]
-tilesize = [100, 100]
-screen = pygame.display.set_mode(size)
+size = Vec2(1800, 900)
+speed = Vec2(1,1)
+background = Vec3(60,60,60)
+white = Vec3(255,255,255)
+tilesize = Vec2(100, 100)
+
+
+screen = pygame.display.set_mode(size.list())
 clock = pygame.time.Clock()
 
-tile_rects = {"White" : [], "Black" : []}
-_blacktile = pygame.image.load("assets/blacktile.png").convert()
-_whitetile = pygame.image.load("assets/whitetile.png").convert()
-_pieces = {
+_piece_sprites = {
     'pawn'   : pygame.image.load('assets/pawn.png').convert(),
     'rook'   : pygame.image.load('assets/rook.png').convert(),
     'knight' : pygame.image.load('assets/knight.png').convert(),
@@ -21,47 +22,59 @@ _pieces = {
     'queen'  : pygame.image.load('assets/queen.png').convert(),
     'king'   : pygame.image.load('assets/king.png').convert()
 }
+_start = """
+r n b q k b n r
+p p p p p p p p
+- - - - - - - -
+- - - - - - - -
+- - - - - - - -
+- - - - - - - -
+P P P P P P P P
+R N B Q K B N R
+"""
+tiles  = {} # grid_position -> tile_obj
+pieces = {} # grid_position -> piece_obj
+
+######
+
+class GridPosition(Vec2):
+    def __init__(self, x, y):
+        assert all([y >= 0, y < 8, x >= 0, x < 8])
+        super().__init__(x,y)
+
+
+
+
+def new_piece(pname, position):
+    p,pr = _piece_sprites[pname], _piece_sprites[pname].get_rect()
+    pr = pr.move(tilesize.x * position.x, tilesize.y * position.y)
+    return p,pr
 
 def create_tile_rects():
-    gentiles = it.cycle([("Black",_blacktile), ("White",_whitetile)])
-    board = {}
+    gentiles = GenTiles()
     for y in range(8):
-        next(gentiles)
+        gentiles.next()
         for x in range(8):
-            color, _tile = next(gentiles)
-            tr = _tile.get_rect()
-            board[(x,y)] = [tilesize[0] * x, tilesize[1] * y]
-            tr = tr.move(board[(x,y)])
-            tile_rects[color].append(tr)
-    return board
+            gpos = GridPosition(x,y)
+            tiles[gpos] = gentiles.next()(gpos, tilesize)
 
 
-board = create_tile_rects()
-ballrect = _pieces['king'].get_rect()
+create_tile_rects()
+#p,pr = new_piece('rook', [1,1])
 
 while 1:
-    clock.tick(60)
     try:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
     except SystemExit:
         break
 
-
-    #ballrect = ballrect.move(speed)
-    #if ballrect.left < 0 or ballrect.right > width:
-    #    speed[0] = -speed[0]
-    #if ballrect.top < 0 or ballrect.bottom > height:
-    #    speed[1] = -speed[1]
-
-
-    screen.fill(black)
-    for tcolor in tile_rects:
-        for tilerect in tile_rects[tcolor]:
-            if tcolor == "White":
-                screen.blit(_whitetile, tilerect)
-            elif tcolor =="Black":
-                screen.blit(_blacktile, tilerect)
+    screen.fill(background.list())
+    for n, tile in enumerate(tiles.values()):
+        screen.blit(tile.tile_surface, tile.tile_rect)
     
-    screen.blit(_pieces['king'], ballrect)
-    pygame.display.flip()
+    #screen.blit(p, pr)
+    pygame.display.update()
+
+    print(pygame.mouse.get_pos())
+    clock.tick(30)
