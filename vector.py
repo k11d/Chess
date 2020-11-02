@@ -1,4 +1,4 @@
-
+#pylint: disable no-member
 class _Vector(object):
     def list(self):
         return list(self.__ret())
