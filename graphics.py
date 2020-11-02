@@ -2,13 +2,15 @@
 import itertools as it
 import sys, pygame
 pygame.init()
+from vector import VecX
 from tiles import GenTiles
 
-size = Vec2(1800, 900)
-speed = Vec2(1,1)
-background = Vec3(60,60,60)
-white = Vec3(255,255,255)
-tilesize = Vec2(100, 100)
+
+size = VecX(1800, 900)
+speed = VecX(1,1)
+background = VecX(60,60,60)
+white = VecX(255,255,255)
+tilesize = VecX(100, 100)
 
 
 screen = pygame.display.set_mode(size.list())
@@ -37,10 +39,9 @@ pieces = {} # grid_position -> piece_obj
 
 ######
 
-class GridPosition(Vec2):
-    def __init__(self, x, y):
-        assert all([y >= 0, y < 8, x >= 0, x < 8])
-        super().__init__(x,y)
+class GridPosition(VecX):
+    pass
+        
 
 
 
