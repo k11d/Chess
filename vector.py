@@ -1,39 +1,62 @@
 
-class Vec2:
-    """
-    2D vector funcname
-    """
-    def __init__(self, xv, y) -> None:
-        try:
-            self.x = xv.x
-            self.y = xv.y
-        except AttributeError:
-            self.x = xv
-            self.y = y
-    def __add__(self, v):
-        try:
-            return Vec2(self.x + v.x, self.y + v.y)
-        except AttributeError:
-            if type(v) == int:
-                return Vec2(self.x + v, self.y + v)
+class _Vector(object):
+    def list(self):
+        return list(self.__ret())
 
-    def __mul__(self, v):
-        try:
-            return Vec2(self.x * v.x, self.y * v.y)
-        except AttributeError:
-            if type(v)== int:
-                return Vec2(self.x * v, self.y * v)
-    def __iadd__(self, v):
-        self.__add__(v)
-    def __imul__(self, v):
-        self.__mul__(v)
+    def tuple(self):
+        return tuple(self.__ret())
+
+    def __ret(self):
+        for k, v in vars(self).items():
+            if not any([k.startswith("_")]):
+                yield v
+
+    def __hash__(self, *values):
+        if values:
+            return hash(values)
+        return hash("".join(map(str, self._ret())))
+    
     def __repr__(self) -> str:
         return self.__str__()
+    
     def __str__(self) -> str:
-        return f"Vec2({self.x}, {self.y})"
-    def __eq__(self, o) -> bool:
-        return all([type(o) == Vec2, self.x == o.x, self.y == o.y])
-    def __hash__(self) -> int:
-        return hash(self.x*self.y+self.x+self.y)
+        return "VecX(" + ",".join(self.list()) + ')'
+    
+    def __eq__(self, v) -> bool:
+        pass
+    
     def delta(self, v):
-        return Vec2(v.x - self.x, v.y - self.y)
+        pass
+
+
+class VecX(_Vector):
+
+    def __init__(self, *components):
+
+        def _gennames():
+            n = ['a']
+            while True:
+                _col = len(n) - 1
+                for s in map(chr, range(ord('a'), ord('z'), 1)):
+                    n[_col] = s
+                    yield "".join(n)
+                n.append('a')
+                
+        self._dims = len(components) if type(components[0]) not in [list, tuple, VecX] else 1
+        for aname, avalue in zip(_gennames(), components):
+            setattr(self, aname, lambda:avalue)    
+        print(f"\n\nVecX of dimension: {self._dims}, and values: {self.list()}")
+        super().__init__()
+
+v1 = VecX(1)
+v2 = VecX(1,2)
+v3 = VecX(1,2,3)
+v3 = VecX(1,2,3)
+v4 = VecX(1,2,3,42)
+# v51 = VecX([1,2,3],[4,5,6])
+print(v3.list())
+print(v3.tuple())
+print(v3.a())
+print(v3.b())
+print(v3.c())
+print(v4.d())
