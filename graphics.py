@@ -41,9 +41,6 @@ pieces = {} # grid_position -> piece_obj
 
 class GridPosition(VecX):
     pass
-        
-
-
 
 
 def new_piece(pname, position):
@@ -61,7 +58,7 @@ def create_tile_rects():
 
 
 create_tile_rects()
-#p,pr = new_piece('rook', [1,1])
+p,pr = new_piece('rook', GridPosition(1,1))
 
 while 1:
     try:

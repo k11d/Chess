@@ -17,7 +17,7 @@ class Tile:
     def get_real_position(self, gpos=None):
         if gpos is None:
             gpos = self.grid_position
-        return [gpos.a * self.tilesize.a, gpos.b * self.tilesize.b]
+        return [gpos.x * self.tilesize.x, gpos.y * self.tilesize.y]
 
     def move_to(self, gpos):
         self.real_position = gpos

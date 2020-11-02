@@ -46,6 +46,16 @@ class VecX(_Vector):
         for aname, avalue in zip(_gennames(), components):
             setattr(self, aname, avalue)    
         print(f"VecX of dimension: {self._dims}, and values: {self.list()}")
+        if self._dims < 4:
+            if self._dims >= 1:
+                setattr(self, 'x', self.a)
+                delattr(self, 'a')
+            if self._dims >= 2:
+                setattr(self, 'y', self.b)
+                delattr(self, 'b')
+            if self._dims == 3:
+                setattr(self, 'z', self.c)
+                delattr(self, 'c')            
 
 # v1 = VecX(1)
 # v2 = VecX(1,2)
