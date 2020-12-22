@@ -1,0 +1,211 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "ChessPiece",
+"class": "Bishop",
+"language": "GDScript",
+"path": "res://Pieces/scripts/Bishop.gd"
+}, {
+"base": "Bishop",
+"class": "BishopB",
+"language": "GDScript",
+"path": "res://Pieces/scripts/BishopB.gd"
+}, {
+"base": "PlayerBase",
+"class": "BlackPlayer",
+"language": "GDScript",
+"path": "res://Players/BlackPlayer.gd"
+}, {
+"base": "Area2D",
+"class": "ChessPiece",
+"language": "GDScript",
+"path": "res://Pieces/scripts/ChessPiece.gd"
+}, {
+"base": "Area2D",
+"class": "Cursor",
+"language": "GDScript",
+"path": "res://Ui/Cursor.gd"
+}, {
+"base": "ChessPiece",
+"class": "King",
+"language": "GDScript",
+"path": "res://Pieces/scripts/King.gd"
+}, {
+"base": "King",
+"class": "KingB",
+"language": "GDScript",
+"path": "res://Pieces/scripts/KingB.gd"
+}, {
+"base": "ChessPiece",
+"class": "Knight",
+"language": "GDScript",
+"path": "res://Pieces/scripts/Knight.gd"
+}, {
+"base": "Knight",
+"class": "KnightB",
+"language": "GDScript",
+"path": "res://Pieces/scripts/KnightB.gd"
+}, {
+"base": "ChessPiece",
+"class": "Pawn",
+"language": "GDScript",
+"path": "res://Pieces/scripts/Pawn.gd"
+}, {
+"base": "Pawn",
+"class": "PawnB",
+"language": "GDScript",
+"path": "res://Pieces/scripts/PawnB.gd"
+}, {
+"base": "Node2D",
+"class": "PlayerBase",
+"language": "GDScript",
+"path": "res://Players/PlayerBase.gd"
+}, {
+"base": "ChessPiece",
+"class": "Queen",
+"language": "GDScript",
+"path": "res://Pieces/scripts/Queen.gd"
+}, {
+"base": "Queen",
+"class": "QueenB",
+"language": "GDScript",
+"path": "res://Pieces/scripts/QueenB.gd"
+}, {
+"base": "ChessPiece",
+"class": "Rook",
+"language": "GDScript",
+"path": "res://Pieces/scripts/Rook.gd"
+}, {
+"base": "Rook",
+"class": "RookB",
+"language": "GDScript",
+"path": "res://Pieces/scripts/RookB.gd"
+}, {
+"base": "Node2D",
+"class": "Tile",
+"language": "GDScript",
+"path": "res://Board/Tile.gd"
+}, {
+"base": "PlayerBase",
+"class": "WhitePlayer",
+"language": "GDScript",
+"path": "res://Players/WhitePlayer.gd"
+} ]
+_global_script_class_icons={
+"Bishop": "res://Images/bishop.png",
+"BishopB": "res://Images/bishop.png",
+"BlackPlayer": "res://icon.png",
+"ChessPiece": "res://Images/bricks3.png",
+"Cursor": "res://Images/cursor.png",
+"King": "res://Images/king.png",
+"KingB": "",
+"Knight": "res://Images/knight.png",
+"KnightB": "",
+"Pawn": "res://Images/pawn.png",
+"PawnB": "",
+"PlayerBase": "",
+"Queen": "res://Images/queen.png",
+"QueenB": "",
+"Rook": "res://Images/rook.png",
+"RookB": "res://Images/rook.png",
+"Tile": "",
+"WhitePlayer": "res://icon.png"
+}
+
+[application]
+
+config/name="GChess"
+run/main_scene="res://Game/Game.tscn"
+config/use_custom_user_dir=true
+boot_splash/image="res://Images/placeholder.png"
+config/icon="res://icon.png"
+
+[audio]
+
+enable_audio_input=true
+
+[compression]
+
+formats/zstd/compression_level=20
+
+[debug]
+
+gdscript/completion/autocomplete_setters_and_getters=true
+gdscript/warnings/unused_class_variable=true
+
+[display]
+
+window/size/width=1080
+window/size/height=1080
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[editor]
+
+main_run_args="/home/kid/dwhelper"
+convert_text_resources_to_binary_on_export=true
+
+[input]
+
+ui_select={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":3,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+select_piece={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+move_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[logging]
+
+file_logging/enable_file_logging.pc=false
+
+[rendering]
+
+quality/driver/fallback_to_gles2=true
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
+threads/thread_model=2
+vram_compression/import_bptc=true
+vram_compression/import_etc=true
+vram_compression/import_pvrtc=true
+quality/shadows/filter_mode=2
+quality/shadows/filter_mode.mobile=1
+quality/reflections/texture_array_reflections.mobile=true
+quality/reflections/high_quality_ggx.mobile=true
+quality/shading/force_vertex_shading=true
+quality/filters/use_nearest_mipmap_filter=true
+quality/filters/msaa=1
+environment/default_environment="res://default_env.tres"

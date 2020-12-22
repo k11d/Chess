@@ -1,0 +1,70 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Pieces/scripts/Queen.gd" type="Script" id=1]
+[ext_resource path="res://Images/queen_n.png" type="Texture" id=2]
+[ext_resource path="res://Images/queen.png" type="Texture" id=3]
+[ext_resource path="res://Images/queen_glow.png" type="Texture" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Phaser"
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Glow:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Glow:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Glow:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Glow:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+
+[node name="Queen" type="Area2D"]
+collision_layer = 2
+collision_mask = 2147483651
+script = ExtResource( 1 )
+self_modulate_color = Color( 1, 0.996078, 0.996078, 1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 15.5, -56.4, 15.5, -47.8, 21.6, -54.5, 35.3, -54.5, 43.5, -46.3, 43.5, -36.7, 47.6, -41.5, 61.3, -41.5, 67.5, -35.3, 67.5, -22.3, 61.5, -12.9, 61.5, -1.2, 51.5, 27.9, 51.5, 46.7, 50.1, 53.5, 48.4, 53.5, 40.2, 62.5, -39.5, 62.5, -50.5, 52.4, -50.5, 46.5, -51.4, 29.5, -52, 29.5, -61.5, -1.2, -61.5, -11.5, -64, -18.5, -67.5, -21.7, -67.5, -34.5, -61.4, -41.5, -46.5, -41.5, -46.5, -39.4, -43.5, -36.8, -43.5, -47.5, -41.4, -47.5, -35.4, -54.5, -20.5, -54.5, -20.5, -52.4, -15.5, -48.1, -15.5, -57.5, -13.3, -57.5, -8.5, -62.3, 8.5, -62.5 )
+
+[node name="Sprite" type="Sprite" parent="."]
+self_modulate = Color( 1, 0.996078, 0.996078, 1 )
+texture = ExtResource( 3 )
+normal_map = ExtResource( 2 )
+
+[node name="Glow" type="Sprite" parent="."]
+texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Phaser = SubResource( 1 )
