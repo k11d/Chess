@@ -8,7 +8,7 @@ var black_player_color
 var now_playing = null
 var tween := Tween.new()
 var _moving := false
-var captured_cursor := false
+var captured_cursor := true setget capture_cursor
 var hovering : ChessPiece = null setget set_hovering
 var selected : ChessPiece = null setget set_selected
 var selected_parent = null
@@ -41,6 +41,15 @@ func _input(event):
 			self.selected = hovering
 		elif selected:
 			self.selected = null
+
+func capture_cursor(state):
+	captured_cursor = state
+	if captured_cursor:
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+
 
 
 func set_hovering(piece):
