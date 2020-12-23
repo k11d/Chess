@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Players/BlackPlayer.gd"
 }, {
+"base": "Node2D",
+"class": "Board",
+"language": "GDScript",
+"path": "res://Board/Board.gd"
+}, {
 "base": "Area2D",
 "class": "ChessPiece",
 "language": "GDScript",
@@ -103,6 +108,7 @@ _global_script_class_icons={
 "Bishop": "res://Images/bishop.png",
 "BishopB": "res://Images/bishop.png",
 "BlackPlayer": "res://icon.png",
+"Board": "res://Images/bricks3.png",
 "ChessPiece": "res://Images/bricks3.png",
 "Cursor": "res://Images/cursor.png",
 "King": "res://Images/king.png",
