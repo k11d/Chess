@@ -8,7 +8,8 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 14 )
-white_mod_color = Color( 0.0352941, 0.894118, 0.211765, 1 )
+white_mod_color = Color( 0.894118, 0.819608, 0.0352941, 1 )
+black_mod_color = Color( 0.682353, 0.25098, 0.92549, 1 )
 
 [node name="Board" type="Node2D" parent="."]
 script = ExtResource( 4 )

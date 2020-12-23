@@ -18,21 +18,30 @@ func _ready() -> void:
 	cursor = get_node("Cursor")
 	white_player = get_node("WhitePlayer")
 	black_player = get_node("BlackPlayer")
-	board.create_grid(tiles, grid_positions)
+	init_grid()
 	init_pieces()
-	randomized_loc_show_in()
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+#	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	cursor.set_movement_step(tile_size)
-	cursor.set_white_player_color(white_mod_color)
-	cursor.set_black_player_color(black_mod_color)
+	cursor.white_player_color = white_mod_color
+	cursor.black_player_color = black_mod_color
 	cursor.visible = true
 
+func _input(event):
+	if event.is_action_pressed("capture_cursor"):
+		cursor.captured_cursor = !cursor.captured_cursor
+		if cursor.captured_cursor:
+			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+func init_grid():
+	board.create_grid(tiles, grid_positions)	
 
 func init_pieces():
 	set_pieces_mod_color(white_player.pieces, white_mod_color)
 	set_pieces_mod_color(black_player.pieces, black_mod_color)
 	set_pieces_board_positions(white_player.pieces + black_player.pieces)	
-
+	randomized_loc_show_in()
 
 func set_pieces_mod_color(pieces, color):
 	for piece in pieces:
@@ -50,7 +59,7 @@ func randomized_loc_show_in():
 		var screen = OS.get_window_size()
 		for piece in white_player.pieces + black_player.pieces:
 			var target_position = piece.global_position
-			piece.global_position = Vector2(rand_range(-620.0, screen.x), rand_range(0.0, screen.y))
+			piece.global_position = Vector2(rand_range(-screen.x, screen.x), rand_range(-screen.y, screen.y))
 			var t = Tween.new()
 			piece.add_child(t)
 			t.interpolate_property(piece, "global_position",
@@ -67,9 +76,10 @@ func real2boardpos(real_pos: Vector2, tile_size) -> Vector2:
 	return p
 
 func _on_Cursor_area_entered(area):
-	if area.has_method('toggle_glow'):
-		area.toggle_glow()
+	area.toggle_glow()
+	cursor.hovering = area
 
 func _on_Cursor_area_exited(area):
-	if area.has_method('toggle_glow'):
-		area.toggle_glow()
+	area.toggle_glow()
+	cursor.hovering = null
+
