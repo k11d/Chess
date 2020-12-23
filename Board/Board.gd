@@ -1,4 +1,6 @@
 extends Node2D
+class_name Board, "res://Images/bricks3.png"
+
 
 var _tile = preload("res://Board/Tile.tscn")
 var tile_size := Vector2(126, 126)
