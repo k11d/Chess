@@ -4,35 +4,41 @@ extends Node2D
 export(Color) var white_mod_color = Color.lightgray
 export(Color) var black_mod_color = Color.violet
 var tile_size := Vector2(128,128)
-var board
+var board : Node2D
 var grid_positions := {} # grid_positions -> real positions 
 var tiles := {}      	 # grid positions -> instances
 var white_player : WhitePlayer = null
 var black_player : BlackPlayer = null
 var cursor : Cursor = null
-
+var game_paused : bool
 
 
 func _ready() -> void:
+	game_paused = true
 	board = get_node("Board")
 	cursor = get_node("Cursor")
 	white_player = get_node("WhitePlayer")
 	black_player = get_node("BlackPlayer")
-	init_grid()
-	init_pieces()
-#	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	cursor.set_movement_step(tile_size)
 	cursor.white_player_color = white_mod_color
 	cursor.black_player_color = black_mod_color
-	cursor.visible = true
+	cursor.visible = false
+	cursor.set_movement_step(tile_size)	
+
 
 func _input(event):
 	if event.is_action_pressed("capture_cursor"):
 		cursor.captured_cursor = !cursor.captured_cursor
-		if cursor.captured_cursor:
-			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+func new_game():
+	white_player.visible = true
+	black_player.visible = true
+	board.visible = true
+	cursor.visible = true	
+	init_grid()
+	init_pieces()
+	$StartButton.visible = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	
 
 func init_grid():
 	board.create_grid(tiles, grid_positions)	
@@ -83,3 +89,7 @@ func _on_Cursor_area_exited(area):
 	area.toggle_glow()
 	cursor.hovering = null
 
+
+func _on_StartButton_pressed():
+	game_paused = false
+	new_game()
