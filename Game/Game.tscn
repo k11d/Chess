@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Players/WhitePlayer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Players/BlackPlayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Ui/Cursor.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Board/Board.gd" type="Script" id=4]
+[ext_resource path="res://Images/cpu_color.png" type="Texture" id=5]
 [ext_resource path="res://Game/Game.gd" type="Script" id=14]
 
 [node name="Game" type="Node2D"]
@@ -12,6 +13,11 @@ white_mod_color = Color( 0.0352941, 0.894118, 0.211765, 1 )
 
 [node name="Board" type="Node2D" parent="."]
 script = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 430.014, 489.946 )
+scale = Vector2( 0.164273, 0.161748 )
+texture = ExtResource( 5 )
 
 [node name="WhitePlayer" parent="." instance=ExtResource( 1 )]
 

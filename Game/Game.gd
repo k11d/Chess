@@ -55,12 +55,12 @@ func randomized_loc_show_in():
 			move_piece(piece, target_position)
 	
 func move_piece(piece, target):
-			var t = Tween.new()
-			piece.add_child(t)
-			t.interpolate_property(piece, "global_position",
+	var t = Tween.new()
+	piece.add_child(t)
+	t.interpolate_property(piece, "global_position",
 		piece.global_position, target, 2.0,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-			t.start()
+	t.start()
 
 
 func real2boardpos(real_pos: Vector2, tile_size) -> Vector2:
@@ -72,6 +72,9 @@ func real2boardpos(real_pos: Vector2, tile_size) -> Vector2:
 func _on_Cursor_area_entered(area):
 	if area.has_method('toggle_glow'):
 		area.toggle_glow()
+	if area.has_method('get_available_moves'):
+		area.get_available_moves()
+
 
 func _on_Cursor_area_exited(area):
 	if area.has_method('toggle_glow'):

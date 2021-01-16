@@ -101,11 +101,11 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Bishop": "res://Images/bishop.png",
-"BishopB": "res://Images/bishop.png",
+"BishopB": "",
 "BlackPlayer": "res://icon.png",
 "ChessPiece": "res://Images/bricks3.png",
 "Cursor": "res://Images/cursor.png",
-"King": "res://Images/king.png",
+"King": "",
 "KingB": "",
 "Knight": "res://Images/knight.png",
 "KnightB": "",
@@ -115,7 +115,7 @@ _global_script_class_icons={
 "Queen": "res://Images/queen.png",
 "QueenB": "",
 "Rook": "res://Images/rook.png",
-"RookB": "res://Images/rook.png",
+"RookB": "",
 "Tile": "",
 "WhitePlayer": "res://icon.png"
 }
