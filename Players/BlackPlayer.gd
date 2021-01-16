@@ -1,4 +1,3 @@
-tool
 extends PlayerBase
 class_name BlackPlayer, "res://icon.png"
 

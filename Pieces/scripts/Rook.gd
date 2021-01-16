@@ -1,4 +1,3 @@
-tool
 extends ChessPiece
 class_name Rook, "res://Images/rook.png"
 

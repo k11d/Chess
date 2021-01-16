@@ -1,17 +1,18 @@
-tool
 extends Area2D
 class_name ChessPiece, "res://Images/bricks3.png"
 
 
 export var self_modulate_color : Color setget set_self_modulate_color
-var sprite 
-var glow
-var anim_player
-var piece_color := "Unset"
-var pname := "Unknown"
-var pcolor := "Unknown" setget ,get_pcolor
+var sprite : Sprite
+var glow : Sprite
+var anim_player : AnimationPlayer
+var piece_color : String = "Unset"
+var pname : String = "Unknown"
+var pcolor : String = "Unknown" setget ,get_pcolor
 var grid_position : Vector2
-var glowing := false
+var glowing : bool = false
+var available_moves : Array
+var enemy_player : PlayerBase
 
 
 func get_pcolor():
@@ -26,14 +27,17 @@ func set_self_modulate_color(col : Color):
 	if sprite:
 		sprite.self_modulate = self_modulate_color
 
+
 func _ready() -> void:
 	sprite = $Sprite
 	glow = $Glow
 	anim_player = $AnimationPlayer
 	if get_parent().name.begins_with("White"):
 		piece_color = "White"
+		enemy_player = get_node("/root/Game/BlackPlayer")
 	else:
 		piece_color = "Black"
+		enemy_player = get_node("/root/Game/WhitePlayer")		
 	if anim_player:
 		anim_player.play("Phaser")	
 		anim_player.seek(0.5, true)
@@ -59,8 +63,18 @@ func _to_string():
 	return s
 
 
+func my_allies():
+	return get_parent().pieces
+
+func my_enemies():
+	return enemy_player.pieces
+
+
 func moveUp():
 	print("From:", grid_position, " to: ", get_parent().grid_positions[Vector2(grid_position.x, grid_position.y-1)])
 
+
 func toggle_glow():
 	glowing = !glowing
+
+

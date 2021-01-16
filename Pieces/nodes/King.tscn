@@ -5,6 +5,9 @@
 [ext_resource path="res://Pieces/scripts/King.gd" type="Script" id=3]
 [ext_resource path="res://Images/king_glow.png" type="Texture" id=4]
 
+
+
+
 [sub_resource type="Animation" id=1]
 resource_name = "Phaser"
 tracks/0/type = "bezier"
