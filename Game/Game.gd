@@ -3,6 +3,7 @@ extends Node2D
 
 export(Color) var white_mod_color = Color.lightgray
 export(Color) var black_mod_color = Color.violet
+var screen
 var tile_size := Vector2(128,128)
 var board
 var grid_positions := {} # grid_positions -> real positions 
@@ -47,17 +48,19 @@ func set_pieces_board_positions(pieces):
 
 func randomized_loc_show_in():
 	if white_player and black_player:
-		var screen = OS.get_window_size()
+		screen = OS.get_window_size()
 		for piece in white_player.pieces + black_player.pieces:
 			var target_position = piece.global_position
 			piece.global_position = Vector2(rand_range(-620.0, screen.x), rand_range(0.0, screen.y))
+			move_piece(piece, target_position)
+	
+func move_piece(piece, target):
 			var t = Tween.new()
 			piece.add_child(t)
 			t.interpolate_property(piece, "global_position",
-				piece.global_position, target_position, 0.4,
-				Tween.TRANS_LINEAR, Tween.EASE_IN)
+		piece.global_position, target, 2.0,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			t.start()
-
 
 
 func real2boardpos(real_pos: Vector2, tile_size) -> Vector2:
