@@ -33,4 +33,8 @@ func _ready() -> void:
 	
 func _process(delta: float) -> void:
 	if position != get_global_mouse_position():
-		position = board2realpos(real2boardpos(get_global_mouse_position(), movement_step), movement_step)
+		var bp = real2boardpos(get_global_mouse_position(), movement_step)
+		bp.x = max(0, min(bp.x, 7))
+		bp.y = max(0, min(bp.y, 7))
+		position = board2realpos(bp, movement_step)
+
