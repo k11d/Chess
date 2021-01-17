@@ -3,20 +3,10 @@ class_name Cursor, "res://Images/cursor.png"
 
 
 var movement_step setget set_movement_step
-var white_player_color setget set_white_player_color
-var black_player_color setget set_black_player_color
-var now_playing = null
 
 
 func set_movement_step(v):
 	movement_step = v
-
-func set_black_player_color(col):
-	black_player_color = col
-
-func set_white_player_color(col):
-	white_player_color = col	
-
 
 func real2boardpos(pos, t_size):
 	return get_parent().real2boardpos(pos, t_size)
