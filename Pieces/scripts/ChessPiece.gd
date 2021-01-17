@@ -64,7 +64,10 @@ func _to_string():
 
 
 func my_allies():
-	return get_parent().pieces
+	var allies : Array = get_parent().pieces
+	allies.remove(allies.find(self)) # remove myself from allies array
+	return allies
+
 
 func my_enemies():
 	return enemy_player.pieces
