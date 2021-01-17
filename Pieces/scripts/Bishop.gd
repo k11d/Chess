@@ -8,9 +8,4 @@ func _ready():
 func get_available_moves():
 	var allies = my_allies()
 	var enemies = my_enemies()
-	print("Allies:")
-	print(allies)
-	print("#######")
-	print("Enemies:")
-	print(enemies)
-
+	

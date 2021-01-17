@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Pieces/scripts/KnightB.gd"
 }, {
+"base": "Node2D",
+"class": "Marker",
+"language": "GDScript",
+"path": "res://Ui/Marker.gd"
+}, {
 "base": "ChessPiece",
 "class": "Pawn",
 "language": "GDScript",
@@ -105,10 +110,11 @@ _global_script_class_icons={
 "BlackPlayer": "res://icon.png",
 "ChessPiece": "res://Images/bricks3.png",
 "Cursor": "res://Images/cursor.png",
-"King": "",
+"King": "res://Images/king.png",
 "KingB": "",
 "Knight": "res://Images/knight.png",
 "KnightB": "",
+"Marker": "res://Images/light_green.png",
 "Pawn": "res://Images/pawn.png",
 "PawnB": "",
 "PlayerBase": "",
