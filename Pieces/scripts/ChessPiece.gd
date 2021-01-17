@@ -60,6 +60,7 @@ func _to_string():
 	s += " "
 	s += name
 	s += " at " + str(global_position.x) + " " + str(global_position.y)
+	s += " (" + str(grid_position.x) + " " + str(grid_position.y) + ") "
 	return s
 
 
