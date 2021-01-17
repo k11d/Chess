@@ -73,10 +73,6 @@ func my_enemies():
 	return enemy_player.pieces
 
 
-func moveUp():
-	print("From:", grid_position, " to: ", get_parent().grid_positions[Vector2(grid_position.x, grid_position.y-1)])
-
-
 func toggle_glow():
 	glowing = !glowing
 
