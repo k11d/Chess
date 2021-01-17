@@ -12,14 +12,7 @@ func real2boardpos(pos, t_size):
 	return get_parent().real2boardpos(pos, t_size)
 
 func board2realpos(bp, t_size):
-	var p = bp * t_size + t_size / 2
-	return p
-
-
-func _ready() -> void:
-	visible = false
-	now_playing = get_node("../WhitePlayer")
-	print("Now playing; ", now_playing)
+	return get_parent().board2realpos(bp, t_size)
 	
 func _process(delta: float) -> void:
 	if position != get_global_mouse_position():
