@@ -138,6 +138,10 @@ config/icon="res://icon.png"
 
 enable_audio_input=true
 
+[autoload]
+
+Global="*res://Game/Global.gd"
+
 [compression]
 
 formats/zstd/compression_level=20

@@ -11,7 +11,7 @@ var pname : String = "Unknown"
 var pcolor : String = "Unknown" setget ,get_pcolor
 var grid_position : Vector2
 var glowing : bool = false
-var available_moves : Array
+var targeted : Global.TargetedPositions
 var enemy_player : PlayerBase
 
 
@@ -42,9 +42,10 @@ func _ready() -> void:
 		anim_player.play("Phaser")	
 		anim_player.seek(0.5, true)
 		anim_player.stop()
+	targeted = Global.TargetedPositions.new()
 
 
-func _process(delta):
+func _process(delta) -> void:
 	if glowing:
 		if anim_player and !anim_player.is_playing():
 			anim_player.play("Phaser")
@@ -54,7 +55,7 @@ func _process(delta):
 			anim_player.stop()
 
 
-func _to_string():
+func _to_string() -> String:
 	var s : String = ""
 	s += piece_color
 	s += " "
@@ -64,17 +65,34 @@ func _to_string():
 	return s
 
 
-func my_allies():
+func my_allies() -> Array:
 	var allies : Array = get_parent().pieces
 	allies.remove(allies.find(self)) # remove myself from allies array
 	return allies
 
 
-func my_enemies():
+func my_enemies() -> Array:
 	return enemy_player.pieces
 
 
-func toggle_glow():
+func pieces_grid_positions(pieces):
+	var pgp := []
+	for p in pieces:
+		pgp.append(p.grid_position)
+	return pgp
+
+
+func toggle_glow() -> void:
 	glowing = !glowing
+
+
+func filter_out_of_grid(positions) -> Array:
+	var filtered := []
+	for pos in positions:
+		if pos.x < 0 or pos.y < 0 or pos.x > 7 or pos.y > 7:
+			continue
+		else:
+			filtered.append(pos)
+	return filtered
 
 

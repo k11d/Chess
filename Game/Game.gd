@@ -25,7 +25,6 @@ var black_player : BlackPlayer = null
 var cursor : Cursor = null
 var turn_state : TurnState
 var marker_scene : PackedScene = load("res://Ui/Marker.tscn")
-enum MarkerColor {Red, Green, Blue}
 
 
 func _ready() -> void:
@@ -41,7 +40,7 @@ func _ready() -> void:
 	cursor.visible = true
 	turn_state = TurnState.new()
 	print("Now playing; ", turn_state.now_playing)
-	test_markers()	
+#	test_markers()	
 	
 
 func init_pieces() -> void:
@@ -88,23 +87,36 @@ func real2boardpos(real_pos: Vector2, tile_size) -> Vector2:
 func board2realpos(bp, t_size) -> Vector2:
 	return bp * t_size + t_size / 2
 
+
 func test_markers():
 	for t in board.get_children():
-		t.add_child(highlight_position(real2boardpos(t.position, tile_size), MarkerColor.Blue))
+		highlight_position(t, Global.MarkerColor.Blue)
 
 
-func highlight_position(pos, col) -> PackedScene:
+func highlight_position(parent, col) -> void:
 	var m = marker_scene.instance()
 	m.set_marker_color(col)
-	return m
+	parent.add_child(m)
 
 
 func _on_Cursor_area_entered(area) -> void:
-	if area.has_method('toggle_glow'):
+	if area is ChessPiece:
+		cursor.hovering_piece = area
 		area.toggle_glow()
-	if area.has_method('get_available_moves'):
-		area.get_available_moves()
+		if area.has_method('get_available_moves'):
+			var tp = area.get_available_moves()
+			if tp:
+				print(tp)
+				for tpos in tiles:
+					for child in tiles[tpos].get_children():
+						if child is Marker:
+							tiles[tpos].remove_child(child)
+							child.free()
+				for tgt in tp.get_all():
+					highlight_position(tiles[tgt], 0)
+
 
 func _on_Cursor_area_exited(area) -> void:
-	if area.has_method('toggle_glow'):
+	if area is ChessPiece:
+		cursor.hovering_piece = null
 		area.toggle_glow()
