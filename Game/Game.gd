@@ -1,18 +1,6 @@
 extends Node2D
 
 
-class TurnState:
-	enum NowPlaying {White, Black}
-	enum State {ToPick, Picked}
-	var now_playing
-	var state
-	
-	func _init():
-		now_playing = NowPlaying.White
-		state = State.ToPick
-
-
-
 export(Color) var white_mod_color = Color.lightgray
 export(Color) var black_mod_color = Color.violet
 var screen
@@ -23,7 +11,7 @@ var tiles := {}      	 # grid positions -> instances
 var white_player : WhitePlayer = null
 var black_player : BlackPlayer = null
 var cursor : Cursor = null
-var turn_state : TurnState
+var turn_state : Global.TurnState
 var marker_scene : PackedScene = load("res://Ui/Marker.tscn")
 
 

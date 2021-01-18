@@ -1,11 +1,21 @@
 extends Node
 
-enum MarkerColor {Red, Green, Blue}
+
+class TurnState:
+	enum NowPlaying {White, Black}
+	enum State {ToPick, Picked}
+	var now_playing
+	var state
+	
+	func _init():
+		now_playing = NowPlaying.White
+		state = State.ToPick
 
 
 
 class TargetedPositions:
 	
+	enum MarkerColor {Red, Green, Blue}
 	var targets : Array
 	
 	func _init() -> void:
@@ -23,7 +33,6 @@ class TargetedPositions:
 	func add(target_position) -> void:
 		targets.append(
 			Vector2(target_position[0], target_position[1]))
-
 	
 	func count() -> int:
 		return len(targets)
