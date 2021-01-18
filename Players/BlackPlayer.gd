@@ -1,6 +1,6 @@
+tool
 extends PlayerBase
 class_name BlackPlayer, "res://icon.png"
-
 
 
 func _ready():
