@@ -23,4 +23,12 @@ func create_grid(tiles, grid_positions):
 			add_child(tile)
 		_last_col += 1
 
-	
+
+func closest_tile_to(gpos : Vector2) -> Tile:
+	var tfound = null
+	for tpos in get_parent().tiles:
+		if tfound == null or gpos.distance_to(tpos) < gpos.distance_to(tfound):
+			tfound = get_parent().tiles[tpos]
+	return tfound
+
+
