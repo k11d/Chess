@@ -48,15 +48,6 @@ func set_pieces_board_positions(pieces):
 		print(piece.pname, " has been set at ", piece.grid_position)
 
 
-func randomized_loc_show_in() -> void:
-	if white_player and black_player:
-		screen = OS.get_window_size()
-		for piece in white_player.pieces + black_player.pieces:
-			var target_position = piece.global_position
-			piece.global_position = Vector2(rand_range(-620.0, screen.x), rand_range(0.0, screen.y))
-			move_piece(piece, target_position)
-
-
 func move_piece(piece, target) -> void:
 	var t = Tween.new()
 	piece.add_child(t)
