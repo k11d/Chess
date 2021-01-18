@@ -18,16 +18,17 @@ var marker_scene : PackedScene = load("res://Ui/Marker.tscn")
 func _ready() -> void:
 	board = get_node("Board")
 	cursor = get_node("Cursor")
+	cursor.disabled = true
 	white_player = get_node("WhitePlayer")
 	black_player = get_node("BlackPlayer")
 	board.create_grid(tiles, grid_positions)
-	init_pieces()
-	randomized_loc_show_in()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	cursor.set_movement_step(tile_size)
 	cursor.visible = true
-	turn_state = TurnState.new()
+	turn_state = Global.TurnState.new()
 	print("Now playing; ", turn_state.now_playing)
+	init_pieces()
+	cursor.disabled = false
 #	test_markers()	
 	
 
@@ -41,11 +42,11 @@ func set_pieces_mod_color(pieces, color):
 	for piece in pieces:
 		piece.modulate = color
 
+
 func set_pieces_board_positions(pieces):
 	for piece in pieces:
 		piece.grid_position = real2boardpos(piece.global_position, tile_size)
-		piece.global_position = grid_positions[piece.grid_position]
-		print(piece.pname, " has been set at ", piece.grid_position)
+		piece.global_position = board2realpos(piece.grid_position, tile_size)
 
 
 func move_piece(piece, target) -> void:
@@ -67,35 +68,46 @@ func board2realpos(bp, t_size) -> Vector2:
 	return bp * t_size + t_size / 2
 
 
-func test_markers():
-	for t in board.get_children():
-		highlight_position(t, Global.MarkerColor.Blue)
+#func test_markers():
+#	for t in board.get_children():
+#		highlight_position(t, Global.MarkerColor.Blue)
 
 
 func highlight_position(parent, col) -> void:
 	var m = marker_scene.instance()
 	m.set_marker_color(col)
+	m.start_loop()
 	parent.add_child(m)
 
 
+func clear_highlights():
+	for tpos in tiles:
+		for child in tiles[tpos].get_children():
+			if child is Marker:
+				tiles[tpos].remove_child(child)
+				child.free()
+
+
 func _on_Cursor_area_entered(area) -> void:
-	if area is ChessPiece:
-		cursor.hovering_piece = area
-		area.toggle_glow()
-		if area.has_method('get_available_moves'):
-			var tp = area.get_available_moves()
-			if tp:
-				print(tp)
-				for tpos in tiles:
-					for child in tiles[tpos].get_children():
-						if child is Marker:
-							tiles[tpos].remove_child(child)
-							child.free()
-				for tgt in tp.get_all():
-					highlight_position(tiles[tgt], 0)
+	if !cursor.disabled:
+		if area is ChessPiece:
+			cursor.hovering_piece = area
+			area.toggle_glow()
+			if area.has_method('get_available_moves'):
+				var tp = area.get_available_moves()
+				if tp:
+					clear_highlights()
+					for tgt in tp.get_all():
+						highlight_position(tiles[tgt], 0)
 
 
 func _on_Cursor_area_exited(area) -> void:
-	if area is ChessPiece:
-		cursor.hovering_piece = null
-		area.toggle_glow()
+	if !cursor.disabled:
+		if area is ChessPiece:
+			cursor.hovering_piece = null
+			area.toggle_glow()
+
+
+#func _input(event):
+#	if event.is_action_pressed("select_piece"):
+#
