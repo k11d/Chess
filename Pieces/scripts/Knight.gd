@@ -5,7 +5,7 @@ class_name Knight, "res://Images/knight.png"
 func _ready():
 	pname = "Knight"
 
-func get_available_moves() -> Global.TargetedPositions:
+func get_available_moves():
 	var x := grid_position.x
 	var y := grid_position.y
 	var candidates := [

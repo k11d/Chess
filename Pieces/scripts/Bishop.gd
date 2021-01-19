@@ -5,15 +5,15 @@ func _ready():
 	pname = "Bishop"
 
 
-func get_available_moves() -> Global.TargetedPositions:
-	var allies = my_allies()
-	var enemies = my_enemies()
+func get_available_moves():
+	var allies := my_allies()
+	var enemies := my_enemies()
 	
-	var candidates = []
-	var x = grid_position.x
-	var y = grid_position.y
-
-	var p
+	var candidates := []
+	var x := grid_position.x
+	var y := grid_position.y
+	var p : Vector2
+	
 	# NE
 	while x > 0 and x < 7 and y > 0 and y < 7:
 		x += 1

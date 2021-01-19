@@ -3,7 +3,7 @@ extends Node2D
 var _tile = preload("res://Board/Tile.tscn")
 var tile_size := Vector2(126, 126)
 
-func create_grid(tiles, grid_positions):
+func create_grid(tiles):
 	var gp
 	var _last_col = 0
 	var tile
@@ -15,11 +15,9 @@ func create_grid(tiles, grid_positions):
 			else:
 				tile.set_black_mode()
 			_last_col += 1
-			tile.set_position_label_text(str(x) + ':' + str(y))
 			gp = Vector2(x,y)
 			tiles[gp] = tile
-			tile.position = gp * tile_size + 0.5 * tile_size
-			grid_positions[gp] = tile.position
+			tile.position = get_parent().board2realpos(gp)
 			add_child(tile)
 		_last_col += 1
 

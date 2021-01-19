@@ -30,8 +30,6 @@ func set_mode(m):
 			$Black.visible = false
 			$White.visible = false
 
-func set_position_label_text(s):
-	$PositionLabel.text = s
 
 func _on_Tile_mouse_entered() -> void:
 	var gp = get_parent().closest_tile(get_global_mouse_position())

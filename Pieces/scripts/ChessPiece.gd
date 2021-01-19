@@ -12,7 +12,7 @@ var pcolor : String = "Unknown" setget ,get_pcolor
 var grid_position : Vector2
 var glowing : bool = false
 var targeted : Global.TargetedPositions
-var enemy_player : PlayerBase
+var enemy_player
 
 
 func get_pcolor():
@@ -21,12 +21,10 @@ func get_pcolor():
 	else:
 		return "White"
 
-
 func set_self_modulate_color(col : Color):
 	self_modulate_color = col
 	if sprite:
 		sprite.self_modulate = self_modulate_color
-
 
 func _ready() -> void:
 	sprite = $Sprite
@@ -44,17 +42,6 @@ func _ready() -> void:
 		anim_player.stop()
 	targeted = Global.TargetedPositions.new()
 
-
-func _process(delta) -> void:
-	if glowing:
-		if anim_player and !anim_player.is_playing():
-			anim_player.play("Phaser")
-	else:
-		if anim_player and anim_player.is_playing():
-			anim_player.seek(0.5, true)
-			anim_player.stop()
-
-
 func _to_string() -> String:
 	var s : String = ""
 	s += piece_color
@@ -64,27 +51,25 @@ func _to_string() -> String:
 	s += " (" + str(grid_position.x) + " " + str(grid_position.y) + ") "
 	return s
 
-
 func my_allies() -> Array:
-	var allies : Array = get_parent().pieces
+	var allies : Array = get_parent().get_children()
 	allies.remove(allies.find(self)) # remove myself from allies array
 	return allies
 
-
 func my_enemies() -> Array:
-	return enemy_player.pieces
+	if name.ends_with("B"):
+		return get_node('/root/Game/WhitePlayer').get_children()
+	else:
+		return get_node('/root/Game/BlackPlayer').get_children()
 
-
-func pieces_grid_positions(pieces):
+func pieces_grid_positions(pieces) -> Array:
 	var pgp := []
 	for p in pieces:
 		pgp.append(p.grid_position)
 	return pgp
 
-
 func toggle_glow() -> void:
 	glowing = !glowing
-
 
 func filter_out_of_grid(positions) -> Array:
 	var filtered := []
@@ -94,5 +79,17 @@ func filter_out_of_grid(positions) -> Array:
 		else:
 			filtered.append(pos)
 	return filtered
+
+
+#########################################################
+
+func _process(delta) -> void:
+	if glowing:
+		if anim_player and !anim_player.is_playing():
+			anim_player.play("Phaser")
+	else:
+		if anim_player and anim_player.is_playing():
+			anim_player.seek(0.5, true)
+			anim_player.stop()
 
 

@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Pieces/scripts/BishopB.gd"
 }, {
-"base": "PlayerBase",
+"base": "Node2D",
 "class": "BlackPlayer",
 "language": "GDScript",
 "path": "res://Players/BlackPlayer.gd"
@@ -69,11 +69,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Pieces/scripts/PawnB.gd"
 }, {
-"base": "Node2D",
-"class": "PlayerBase",
-"language": "GDScript",
-"path": "res://Players/PlayerBase.gd"
-}, {
 "base": "ChessPiece",
 "class": "Queen",
 "language": "GDScript",
@@ -99,7 +94,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Board/Tile.gd"
 }, {
-"base": "PlayerBase",
+"base": "Node2D",
 "class": "WhitePlayer",
 "language": "GDScript",
 "path": "res://Players/WhitePlayer.gd"
@@ -117,7 +112,6 @@ _global_script_class_icons={
 "Marker": "res://Images/light_green.png",
 "Pawn": "res://Images/pawn.png",
 "PawnB": "",
-"PlayerBase": "",
 "Queen": "res://Images/queen.png",
 "QueenB": "",
 "Rook": "res://Images/rook.png",
@@ -195,6 +189,11 @@ move_left={
 move_right={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+DEBUG_randomize={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":82,"unicode":0,"echo":false,"script":null)
  ]
 }
 
