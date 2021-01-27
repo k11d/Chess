@@ -12,121 +12,121 @@ _global_script_classes=[ {
 "base": "ChessPiece",
 "class": "Bishop",
 "language": "GDScript",
-"path": "res://Pieces/scripts/Bishop.gd"
+"path": "res://Source/Pieces/scripts/Bishop.gd"
 }, {
 "base": "Bishop",
 "class": "BishopB",
 "language": "GDScript",
-"path": "res://Pieces/scripts/BishopB.gd"
+"path": "res://Source/Pieces/scripts/BishopB.gd"
 }, {
 "base": "Node2D",
 "class": "BlackPlayer",
 "language": "GDScript",
-"path": "res://Players/BlackPlayer.gd"
+"path": "res://Source/Players/BlackPlayer.gd"
 }, {
 "base": "Area2D",
 "class": "ChessPiece",
 "language": "GDScript",
-"path": "res://Pieces/scripts/ChessPiece.gd"
+"path": "res://Source/Pieces/scripts/ChessPiece.gd"
 }, {
 "base": "Area2D",
 "class": "Cursor",
 "language": "GDScript",
-"path": "res://Ui/Cursor.gd"
+"path": "res://Source/Ui/Cursor.gd"
 }, {
 "base": "ChessPiece",
 "class": "King",
 "language": "GDScript",
-"path": "res://Pieces/scripts/King.gd"
+"path": "res://Source/Pieces/scripts/King.gd"
 }, {
 "base": "King",
 "class": "KingB",
 "language": "GDScript",
-"path": "res://Pieces/scripts/KingB.gd"
+"path": "res://Source/Pieces/scripts/KingB.gd"
 }, {
 "base": "ChessPiece",
 "class": "Knight",
 "language": "GDScript",
-"path": "res://Pieces/scripts/Knight.gd"
+"path": "res://Source/Pieces/scripts/Knight.gd"
 }, {
 "base": "Knight",
 "class": "KnightB",
 "language": "GDScript",
-"path": "res://Pieces/scripts/KnightB.gd"
+"path": "res://Source/Pieces/scripts/KnightB.gd"
 }, {
 "base": "Node2D",
 "class": "Marker",
 "language": "GDScript",
-"path": "res://Ui/Marker.gd"
+"path": "res://Source/Ui/Marker.gd"
 }, {
 "base": "ChessPiece",
 "class": "Pawn",
 "language": "GDScript",
-"path": "res://Pieces/scripts/Pawn.gd"
+"path": "res://Source/Pieces/scripts/Pawn.gd"
 }, {
 "base": "Pawn",
 "class": "PawnB",
 "language": "GDScript",
-"path": "res://Pieces/scripts/PawnB.gd"
+"path": "res://Source/Pieces/scripts/PawnB.gd"
 }, {
 "base": "ChessPiece",
 "class": "Queen",
 "language": "GDScript",
-"path": "res://Pieces/scripts/Queen.gd"
+"path": "res://Source/Pieces/scripts/Queen.gd"
 }, {
 "base": "Queen",
 "class": "QueenB",
 "language": "GDScript",
-"path": "res://Pieces/scripts/QueenB.gd"
+"path": "res://Source/Pieces/scripts/QueenB.gd"
 }, {
 "base": "ChessPiece",
 "class": "Rook",
 "language": "GDScript",
-"path": "res://Pieces/scripts/Rook.gd"
+"path": "res://Source/Pieces/scripts/Rook.gd"
 }, {
 "base": "Rook",
 "class": "RookB",
 "language": "GDScript",
-"path": "res://Pieces/scripts/RookB.gd"
+"path": "res://Source/Pieces/scripts/RookB.gd"
 }, {
 "base": "Node2D",
 "class": "Tile",
 "language": "GDScript",
-"path": "res://Board/Tile.gd"
+"path": "res://Source/Board/Tile.gd"
 }, {
 "base": "Node2D",
 "class": "WhitePlayer",
 "language": "GDScript",
-"path": "res://Players/WhitePlayer.gd"
+"path": "res://Source/Players/WhitePlayer.gd"
 } ]
 _global_script_class_icons={
-"Bishop": "res://Images/bishop.png",
+"Bishop": "",
 "BishopB": "",
-"BlackPlayer": "res://icon.png",
-"ChessPiece": "res://Images/bricks3.png",
-"Cursor": "res://Images/cursor.png",
-"King": "res://Images/king.png",
+"BlackPlayer": "",
+"ChessPiece": "",
+"Cursor": "",
+"King": "",
 "KingB": "",
-"Knight": "res://Images/knight.png",
+"Knight": "",
 "KnightB": "",
-"Marker": "res://Images/light_green.png",
-"Pawn": "res://Images/pawn.png",
+"Marker": "res://Source/Images/light_green.png",
+"Pawn": "",
 "PawnB": "",
-"Queen": "res://Images/queen.png",
+"Queen": "",
 "QueenB": "",
-"Rook": "res://Images/rook.png",
+"Rook": "",
 "RookB": "",
 "Tile": "",
-"WhitePlayer": "res://icon.png"
+"WhitePlayer": ""
 }
 
 [application]
 
 config/name="GChess"
-run/main_scene="res://Game/Game.tscn"
+run/main_scene="res://Source/Game/Game.tscn"
 config/use_custom_user_dir=true
-boot_splash/image="res://Images/placeholder.png"
-config/icon="res://Game/assets/icon.png"
+boot_splash/image="res://Source/Images/placeholder.png"
+config/icon="res://Source/Game/assets/icon.png"
 
 [audio]
 
@@ -134,7 +134,7 @@ enable_audio_input=true
 
 [autoload]
 
-Global="*res://Game/Global.gd"
+Global="*res://Source/Game/Global.gd"
 
 [compression]
 
