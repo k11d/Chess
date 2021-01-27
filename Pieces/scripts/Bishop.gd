@@ -1,13 +1,12 @@
 extends ChessPiece
 class_name Bishop, "res://Images/bishop.png"
 
-func _ready():
-	pname = "Bishop"
 
 
 func get_available_moves():
-	var allies := my_allies()
-	var enemies := my_enemies()
+	
+	var enemy_positions  = Global.piece_positions("Black")
+	var allies_positions = Global.piece_positions("White")
 	
 	var candidates := []
 	var x := grid_position.x
@@ -19,10 +18,10 @@ func get_available_moves():
 		x += 1
 		y -= 1
 		p = Vector2(x,y)
-		if p in pieces_grid_positions(my_enemies()):
+		if p in enemy_positions:
 			candidates.append(Vector2(x, y))
 			break
-		if p in pieces_grid_positions(my_allies()):
+		if p in allies_positions:
 			break
 		candidates.append(Vector2(x, y))
 	
@@ -33,10 +32,10 @@ func get_available_moves():
 		x -= 1
 		y -= 1
 		p = Vector2(x,y)
-		if p in pieces_grid_positions(my_enemies()):
+		if p in enemy_positions:
 			candidates.append(Vector2(x, y))
 			break
-		if p in pieces_grid_positions(my_allies()):
+		if p in allies_positions:
 			break
 		candidates.append(Vector2(x, y))
 	
@@ -47,10 +46,10 @@ func get_available_moves():
 		x += 1
 		y += 1
 		p = Vector2(x,y)
-		if p in pieces_grid_positions(my_enemies()):
+		if p in enemy_positions:
 			candidates.append(Vector2(x, y))
 			break
-		if p in pieces_grid_positions(my_allies()):
+		if p in allies_positions:
 			break
 		candidates.append(Vector2(x, y))
 	
@@ -61,10 +60,10 @@ func get_available_moves():
 		x -= 1
 		y += 1
 		p = Vector2(x,y)
-		if p in pieces_grid_positions(my_enemies()):
+		if p in enemy_positions:
 			candidates.append(Vector2(x, y))
 			break
-		if p in pieces_grid_positions(my_allies()):
+		if p in allies_positions:
 			break
 		candidates.append(Vector2(x, y))
 	

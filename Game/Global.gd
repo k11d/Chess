@@ -1,6 +1,31 @@
 extends Node
 
 
+var game_state : Dictionary 
+var whites : Array
+var blacks : Array
+
+
+func register_game_state(gm : Dictionary) -> void:
+	game_state = gm
+	print("Registered game state:")
+	print(game_state.values())
+
+func pieces(only_color=null) -> Array:
+	var pcs := []
+	for p in game_state.values():
+		if p and only_color == null or p and only_color == p.piece_color:
+			pcs.append(p)
+	return pcs
+
+func piece_positions(only_color=null) -> Array:
+	var positions := []
+	for pos in game_state:
+		if only_color == null or game_state[pos] and only_color == game_state[pos].piece_color:
+			positions.append(game_state[pos])
+	return positions
+
+
 class TurnState:
 	
 	enum NowPlaying {White, Black}
@@ -66,13 +91,14 @@ class TargetedPositions:
 		return targets
 	
 	func add(target_position) -> void:
-		targets.append(
-			Vector2(target_position[0], target_position[1]))
+		if typeof(target_position) == TYPE_VECTOR2:
+			targets.append(target_position)
+		else:
+			targets.append(
+				Vector2(target_position[0], target_position[1]))
 	
 	func count() -> int:
 		return len(targets)
 	
 	func clear() -> void:
 		targets.clear()
-
-

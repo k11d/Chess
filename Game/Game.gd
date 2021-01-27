@@ -12,37 +12,100 @@ var black_player : BlackPlayer = null
 var _moving_pieces : Array = []
 var cursor : Cursor = null
 var turn_state : Global.TurnState
-var marker_scene : PackedScene = load("res://Ui/Marker.tscn")
+var marker_scene : PackedScene = preload("res://Ui/Marker.tscn")
+
+
+const _start_positions = "rnbkqbnr,pppppppp,00000000,00000000,00000000,00000000,PPPPPPPP,RNBKQBNR"
+
 
 
 func _ready() -> void:
-	board = get_node("Board")
 	cursor = get_node("Cursor")
-	cursor.disabled = true
-	white_player = get_node("WhitePlayer")
-	black_player = get_node("BlackPlayer")
-	board.create_grid(tiles)
+	cursor.disabled = false
+	cursor.visible = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	cursor.set_movement_step(tile_size)
-	cursor.visible = true
+	
+	white_player = get_node("WhitePlayer")
+	black_player = get_node("BlackPlayer")
+	
+	board = get_node("Board")
+	board.create_grid(tiles)
 	turn_state = Global.TurnState.new()
-	init_pieces()
-	cursor.disabled = false
+	Global.register_game_state(init_pieces(_start_positions))
+	
 
 
-func init_pieces() -> void:
-	set_pieces_mod_color(white_player.get_children(), white_mod_color)
-	set_pieces_mod_color(black_player.get_children(), black_mod_color)
-	set_pieces_board_positions(white_player.get_children() + black_player.get_children())
+func init_pieces(grid : String) -> Dictionary:
+	var x := 0
+	var y := 0
+	var pos : Vector2
+	var new_grid := {}
+	for c in grid:
+		if c == ",":
+			continue
+		pos = Vector2(x, y)
+		if x == 7:
+			x = 0
+			y += 1
+		else:
+			x += 1
+		var piece = null
+		match c:
+			"r":
+				piece = preload("res://Pieces/nodes/RookB.tscn").instance()
+				piece.piece_color = "Black"
+			"n":
+				piece = preload("res://Pieces/nodes/KnightB.tscn").instance()
+				piece.piece_color = "Black"
+			"b":
+				piece = preload("res://Pieces/nodes/BishopB.tscn").instance()
+				piece.piece_color = "Black"
+			"k":
+				piece = preload("res://Pieces/nodes/KingB.tscn").instance()
+				piece.piece_color = "Black"
+			"q":
+				piece = preload("res://Pieces/nodes/QueenB.tscn").instance()
+				piece.piece_color = "Black"
+			"p":
+				piece = preload("res://Pieces/nodes/PawnB.tscn").instance()
+				piece.piece_color = "Black"
+			"R":
+				piece = preload("res://Pieces/nodes/Rook.tscn").instance()
+				piece.piece_color = "White"
+			"N":
+				piece = preload("res://Pieces/nodes/Knight.tscn").instance()
+				piece.piece_color = "White"
+			"B":
+				piece = preload("res://Pieces/nodes/Bishop.tscn").instance()
+				piece.piece_color = "White"
+			"K":
+				piece = preload("res://Pieces/nodes/King.tscn").instance()
+				piece.piece_color = "White"
+			"Q":
+				piece = preload("res://Pieces/nodes/Queen.tscn").instance()
+				piece.piece_color = "White"
+			"P":
+				piece = preload("res://Pieces/nodes/Pawn.tscn").instance()
+				piece.piece_color = "White"
+			_:
+				piece = null
+		new_grid[pos] = piece
+		if piece == null:
+			continue
+		else:
+			piece.grid_position = pos
+			piece.global_position = board2realpos(pos, tile_size)
+			if piece.piece_color == "White":
+				piece.modulate = white_mod_color
+				piece.set_owner(white_player)
+				white_player.add_child(piece)
+			else:
+				piece.modulate = black_mod_color				
+				piece.set_owner(black_player)
+				black_player.add_child(piece)
+	return new_grid
 
-func set_pieces_mod_color(pieces, color):
-	for piece in pieces:
-		piece.modulate = color
-
-func set_pieces_board_positions(pieces):
-	for piece in pieces:
-		piece.grid_position = real2boardpos(piece.global_position, tile_size)
-		piece.global_position = board2realpos(piece.grid_position, tile_size)
 
 func move_piece(piece, target_real, speed_factor=0.5) -> void:
 	var t = Tween.new()
@@ -51,16 +114,7 @@ func move_piece(piece, target_real, speed_factor=0.5) -> void:
 	t.interpolate_property(piece, "global_position",
 		piece.global_position, target_real, speed_factor,
 		Tween.TRANS_LINEAR, Tween.EASE_OUT)
-#	t.connect("tween_completed", self, "register_piece_done_moving", [piece])
 	t.start()
-
-#func register_piece_moving(piece : ChessPiece) -> void:
-#	_moving_pieces.append(piece)	
-#
-#func register_piece_done_moving(p : Array) -> void:
-#	_moving_pieces.remove(_moving_pieces.find(p[0]))
-#	if len(_moving_pieces) == 0:
-#		cursor.disabled = false
 
 func real2boardpos(real_pos: Vector2, t_size=null) -> Vector2:
 	if t_size == null:
@@ -81,10 +135,11 @@ func randomize_game():
 		available.append(tpos)
 	clear_highlights()
 	var dest : Vector2
-	for p in white_player.pieces + black_player.pieces:
+	for p in white_player.get_children() + black_player.get_children():
 		dest = available[randi() % len(available) - 1]
 		available.remove(available.find(dest))
 		move_piece(p, board2realpos(dest, tile_size))
+
 
 func highlight_position(pos, col) -> void:
 	var m = marker_scene.instance()
@@ -105,11 +160,16 @@ func _on_Cursor_area_entered(area) -> void:
 		if area is ChessPiece:
 			cursor.hovering_piece = area
 			area.toggle_glow()
+			clear_highlights()
 			if area.has_method('get_available_moves'):
 				var tp = area.get_available_moves()
 				if tp:
-					for tgt in tp.get_all():
-						highlight_position(tgt, Global.TargetedPositions.MarkerColor.Blue)
+					if typeof(tp) == TYPE_ARRAY:
+						for tgt in tp:
+							highlight_position(tgt, Global.TargetedPositions.MarkerColor.Blue)
+					elif tp.has_method("highlight_position"):
+						for tgt in tp.get_all():
+							highlight_position(tgt, Global.TargetedPositions.MarkerColor.Blue)
 
 func _on_Cursor_area_exited(area) -> void:
 	if !cursor.disabled:
@@ -122,3 +182,8 @@ func _on_Cursor_area_exited(area) -> void:
 func _input(event):
 	if event.is_action_pressed("DEBUG_randomize"):
 		randomize_game()
+	if event.is_action_pressed("toggle_HUD"):
+		cursor.toggle_hud()
+	if event.is_action_pressed("select_piece"):
+		cursor.selected_piece = cursor.hovering_piece
+

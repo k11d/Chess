@@ -35,6 +35,10 @@ func set_selected_piece(p):
 	if selected_piece:
 		HUDs['selected'].text = str(hovering_piece)
 		HUDs['selected'].visible = true
+		var pos = selected_piece.global_position
+		selected_piece.get_parent().remove_child(selected_piece)
+		add_child(selected_piece)
+		selected_piece.global_position = pos
 	else:
 		HUDs['selected'].visible = false
 
@@ -65,7 +69,7 @@ func move_snapped(real_position : Vector2) -> void:
 	#		 it will instead be snapped to the closest valid position
 	#		 within the grid.
 	# Use `move_freely` for an arbitrary destination.
-	var bp = real2boardpos(real_position, movement_step)
+	var bp = self.real2boardpos(real_position, movement_step)
 	bp.y = max(0, min(bp.y, 7))
 	bp.x = max(0, min(bp.x, 7))
 	if real2boardpos(position, movement_step) != bp:
@@ -76,6 +80,9 @@ func move_freely(real_position : Vector2) -> void:
 	# Moves the cursor to an arbitrary `real_postition` destination
 	position = real_position
 	update_on_hud_position(real_position, null)
+
+func toggle_hud() -> void:
+	$HUD.visible = !$HUD.visible
 
 ######################################################
 

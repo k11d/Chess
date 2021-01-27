@@ -20,7 +20,7 @@ tracks/0/keys = {
 }
 
 [node name="Marker" type="Node2D"]
-z_index = 5
+z_index = 4
 script = ExtResource( 1 )
 marker_color = 1
 

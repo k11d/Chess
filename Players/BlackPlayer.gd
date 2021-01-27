@@ -1,9 +1,7 @@
 extends Node2D
 class_name BlackPlayer, "res://icon.png"
 
-#
-#func _ready():
-#	player_color = "Black"
-#	for piece in get_children():
-#		pieces.append(piece)
-#	enemy = get_node("../WhitePlayer")
+
+func spawn_piece(piece):
+	print("Spawning black piece:")
+	print(piece)

@@ -2,8 +2,6 @@ extends ChessPiece
 class_name Knight, "res://Images/knight.png"
 
 
-func _ready():
-	pname = "Knight"
 
 func get_available_moves():
 	var x := grid_position.x
@@ -18,8 +16,12 @@ func get_available_moves():
 		Vector2(x - 2, y - 1),
 		Vector2(x + 1, y + 2)
 	]
-	targeted.clear()
-	for pos in filter_out_of_grid(candidates):
-		if !(pos in pieces_grid_positions(my_allies())):
-			targeted.add(pos)
-	return targeted
+	
+	var allies_positions = Global.piece_positions("White")
+	var final := []
+	for pos in candidates:
+		if pos in allies_positions:
+			continue
+		else:
+			final.append(pos)
+	return final
