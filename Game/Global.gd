@@ -8,8 +8,10 @@ var blacks : Array
 
 func register_game_state(gm : Dictionary) -> void:
 	game_state = gm
-	print("Registered game state:")
-	print(game_state.values())
+	print("Registered game state.")
+
+func update_piece_position(piece) -> void:
+	game_state[piece.grid_position] = piece
 
 func pieces(only_color=null) -> Array:
 	var pcs := []
@@ -18,12 +20,14 @@ func pieces(only_color=null) -> Array:
 			pcs.append(p)
 	return pcs
 
+
 func piece_positions(only_color=null) -> Array:
 	var positions := []
 	for pos in game_state:
 		if only_color == null or game_state[pos] and only_color == game_state[pos].piece_color:
 			positions.append(game_state[pos])
 	return positions
+
 
 
 class TurnState:
