@@ -1,5 +1,0 @@
-{
-    "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true,
-    "godot_tools.editor_path": "/opt/Godot_v3.2.3-stable_x11.64"
-}
