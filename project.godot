@@ -126,7 +126,7 @@ config/name="GChess"
 run/main_scene="res://Game/Game.tscn"
 config/use_custom_user_dir=true
 boot_splash/image="res://Images/placeholder.png"
-config/icon="res://icon.png"
+config/icon="res://Game/assets/icon.png"
 
 [audio]
 
