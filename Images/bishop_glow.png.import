@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bishop_glow.png-2e8c3da8b7ea3ea7502dbb95c1431d18.stex"
+path="res://.import/bishop_glow.png-e773b3e22c273d33bebdbef832ee227b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Source/Images/bishop_glow.png"
-dest_files=[ "res://.import/bishop_glow.png-2e8c3da8b7ea3ea7502dbb95c1431d18.stex" ]
+source_file="res://Images/bishop_glow.png"
+dest_files=[ "res://.import/bishop_glow.png-e773b3e22c273d33bebdbef832ee227b.stex" ]
 
 [params]
 

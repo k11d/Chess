@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rook_n.png-fdf0f8d294e0642b891f4a2e5f0a5d57.stex"
+path="res://.import/rook_n.png-b35e32be0014f9ba8cb56957467c7403.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Source/Images/rook_n.png"
-dest_files=[ "res://.import/rook_n.png-fdf0f8d294e0642b891f4a2e5f0a5d57.stex" ]
+source_file="res://Images/rook_n.png"
+dest_files=[ "res://.import/rook_n.png-b35e32be0014f9ba8cb56957467c7403.stex" ]
 
 [params]
 

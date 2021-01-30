@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/king_glow.png-f74281db43e60c042c598d6454999ad3.stex"
+path="res://.import/king_glow.png-c59bc5c23eb9dfb7a3cc886619a85f8f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Source/Images/king_glow.png"
-dest_files=[ "res://.import/king_glow.png-f74281db43e60c042c598d6454999ad3.stex" ]
+source_file="res://Images/king_glow.png"
+dest_files=[ "res://.import/king_glow.png-c59bc5c23eb9dfb7a3cc886619a85f8f.stex" ]
 
 [params]
 

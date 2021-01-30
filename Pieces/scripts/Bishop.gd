@@ -67,7 +67,4 @@ func get_available_moves():
 			break
 		candidates.append(Vector2(x, y))
 	
-	targeted.clear()
-	for _p in candidates:
-		targeted.add(_p)
-	return targeted
+	return candidates

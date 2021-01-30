@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/queen_glow.png-23e92ebd37211ca4033edef3d548270c.stex"
+path="res://.import/queen_glow.png-a19008f0fa3600cad03a083b488a91c0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Source/Images/queen_glow.png"
-dest_files=[ "res://.import/queen_glow.png-23e92ebd37211ca4033edef3d548270c.stex" ]
+source_file="res://Images/queen_glow.png"
+dest_files=[ "res://.import/queen_glow.png-a19008f0fa3600cad03a083b488a91c0.stex" ]
 
 [params]
 

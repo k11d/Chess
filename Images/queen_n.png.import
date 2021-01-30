@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/queen_n.png-9a11600a2ac8ca0015b4af515edf8d65.stex"
+path="res://.import/queen_n.png-11f524681f8bc24a0212cfad29e957db.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Source/Images/queen_n.png"
-dest_files=[ "res://.import/queen_n.png-9a11600a2ac8ca0015b4af515edf8d65.stex" ]
+source_file="res://Images/queen_n.png"
+dest_files=[ "res://.import/queen_n.png-11f524681f8bc24a0212cfad29e957db.stex" ]
 
 [params]
 

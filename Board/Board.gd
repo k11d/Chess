@@ -1,6 +1,6 @@
 extends Node2D
 
-var _tile = preload("res://Source/Board/Tile.tscn")
+var _tile = load("res://Board/Tile.tscn")
 var tile_size := Vector2(126, 126)
 
 func create_grid(tiles):

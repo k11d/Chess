@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/knight_glow.png-d1274510b04222a805ede786c5789f23.stex"
+path="res://.import/knight_glow.png-2c2321e8565d061a0bed2633a053d433.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Source/Images/knight_glow.png"
-dest_files=[ "res://.import/knight_glow.png-d1274510b04222a805ede786c5789f23.stex" ]
+source_file="res://Images/knight_glow.png"
+dest_files=[ "res://.import/knight_glow.png-2c2321e8565d061a0bed2633a053d433.stex" ]
 
 [params]
 

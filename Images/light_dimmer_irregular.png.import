@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/light_dimmer_irregular.png-52235c91d78c4538a271cf526e06934e.stex"
+path="res://.import/light_dimmer_irregular.png-a0ffeb1302a3af279da517475512874c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Source/Images/light_dimmer_irregular.png"
-dest_files=[ "res://.import/light_dimmer_irregular.png-52235c91d78c4538a271cf526e06934e.stex" ]
+source_file="res://Images/light_dimmer_irregular.png"
+dest_files=[ "res://.import/light_dimmer_irregular.png-a0ffeb1302a3af279da517475512874c.stex" ]
 
 [params]
 

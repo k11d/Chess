@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Source/Images/rook.png" type="Texture" id=1]
-[ext_resource path="res://Source/Pieces/scripts/Rook.gd" type="Script" id=2]
-[ext_resource path="res://Source/Images/rook_n.png" type="Texture" id=3]
-[ext_resource path="res://Source/Images/rook_glow.png" type="Texture" id=4]
+[ext_resource path="res://Images/rook.png" type="Texture" id=1]
+[ext_resource path="res://Images/rook_n.png" type="Texture" id=2]
+[ext_resource path="res://Images/rook_glow.png" type="Texture" id=3]
+[ext_resource path="res://Pieces/scripts/Rook.gd" type="Script" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Phaser"
@@ -51,18 +51,17 @@ tracks/3/keys = {
 [node name="Rook" type="Area2D"]
 collision_layer = 2
 collision_mask = 2147483651
-script = ExtResource( 2 )
-self_modulate_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 4 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -20.5, -59.5, -18.7, -46.5, -15.3, -46.5, -13.3, -62.5, 13.3, -62.5, 15.3, -46.5, 18.7, -46.5, 20.7, -62.5, 46.3, -62.5, 49.5, -59.3, 49.5, -15.7, 39.3, -5.5, 33.5, -5.5, 33.5, 9.5, 42.6, 24.5, 43.3, 24.5, 54.5, 35.7, 54.5, 59.5, -54.5, 59.5, -54.5, 35.8, -33.5, 10.8, -33.5, -5.5, -40.5, -5.5, -40.5, -7.6, -48.5, -14.6, -48.5, -37.5, -47.5, -59.5, -47.5, -62.5, -20.5, -62.5 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-normal_map = ExtResource( 3 )
+normal_map = ExtResource( 2 )
 
 [node name="Glow" type="Sprite" parent="."]
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Phaser = SubResource( 1 )

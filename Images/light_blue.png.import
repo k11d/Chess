@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/light_blue.png-334ecb37a3c36c4bb411ab16bb530513.stex"
+path="res://.import/light_blue.png-38c35fbd9b6b8f3521f9275e5a1121ed.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Source/Images/light_blue.png"
-dest_files=[ "res://.import/light_blue.png-334ecb37a3c36c4bb411ab16bb530513.stex" ]
+source_file="res://Images/light_blue.png"
+dest_files=[ "res://.import/light_blue.png-38c35fbd9b6b8f3521f9275e5a1121ed.stex" ]
 
 [params]
 

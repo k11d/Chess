@@ -8,7 +8,7 @@ var glow : Sprite
 var anim_player : AnimationPlayer
 var grid_position : Vector2
 var glowing : bool = false
-var targeted : Global.TargetedPositions
+#var targeted : Global.TargetedPositions
 var enemy_player
 var piece_color
 
@@ -30,7 +30,7 @@ func _ready() -> void:
 		anim_player.play("Phaser")	
 		anim_player.seek(0.5, true)
 		anim_player.stop()
-	targeted = Global.TargetedPositions.new()
+#	targeted = Global.TargetedPositions.new()
 
 func _to_string() -> String:
 	var s : String = ""

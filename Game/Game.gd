@@ -11,8 +11,8 @@ var white_player : WhitePlayer = null
 var black_player : BlackPlayer = null
 var _moving_pieces : Array = []
 var cursor : Cursor = null
-var turn_state : Global.TurnState
-var marker_scene : PackedScene = preload("res://Source/Ui/Marker.tscn")
+#var turn_state : Global.TurnState
+var marker_scene : PackedScene = load("res://Ui/Marker.tscn")
 
 
 const _start_positions := [
@@ -39,7 +39,7 @@ func _ready() -> void:
 	
 	board = get_node("Board")
 	board.create_grid(tiles)
-	turn_state = Global.TurnState.new()
+#	turn_state = Global.TurnState.new()
 	Global.register_game_state(init_pieces(_start_positions))
 	
 
@@ -54,40 +54,40 @@ func init_pieces(grid : Array) -> Dictionary:
 			var piece = null
 			match c:
 				"r":
-					piece = preload("res://Source/Pieces/nodes/RookB.tscn").instance()
+					piece = preload("res://Pieces/nodes/Rook.tscn").instance()
 					piece.piece_color = "Black"
 				"n":
-					piece = preload("res://Source/Pieces/nodes/KnightB.tscn").instance()
+					piece = preload("res://Pieces/nodes/Knight.tscn").instance()
 					piece.piece_color = "Black"
 				"b":
-					piece = preload("res://Source/Pieces/nodes/BishopB.tscn").instance()
+					piece = preload("res://Pieces/nodes/Bishop.tscn").instance()
 					piece.piece_color = "Black"
 				"k":
-					piece = preload("res://Source/Pieces/nodes/KingB.tscn").instance()
+					piece = preload("res://Pieces/nodes/King.tscn").instance()
 					piece.piece_color = "Black"
 				"q":
-					piece = preload("res://Source/Pieces/nodes/QueenB.tscn").instance()
+					piece = preload("res://Pieces/nodes/Queen.tscn").instance()
 					piece.piece_color = "Black"
 				"p":
-					piece = preload("res://Source/Pieces/nodes/PawnB.tscn").instance()
+					piece = preload("res://Pieces/nodes/Pawn.tscn").instance()
 					piece.piece_color = "Black"
 				"R":
-					piece = preload("res://Source/Pieces/nodes/Rook.tscn").instance()
+					piece = preload("res://Pieces/nodes/Rook.tscn").instance()
 					piece.piece_color = "White"
 				"N":
-					piece = preload("res://Source/Pieces/nodes/Knight.tscn").instance()
+					piece = preload("res://Pieces/nodes/Knight.tscn").instance()
 					piece.piece_color = "White"
 				"B":
-					piece = preload("res://Source/Pieces/nodes/Bishop.tscn").instance()
+					piece = preload("res://Pieces/nodes/Bishop.tscn").instance()
 					piece.piece_color = "White"
 				"K":
-					piece = preload("res://Source/Pieces/nodes/King.tscn").instance()
+					piece = preload("res://Pieces/nodes/King.tscn").instance()
 					piece.piece_color = "White"
 				"Q":
-					piece = preload("res://Source/Pieces/nodes/Queen.tscn").instance()
+					piece = preload("res://Pieces/nodes/Queen.tscn").instance()
 					piece.piece_color = "White"
 				"P":
-					piece = preload("res://Source/Pieces/nodes/Pawn.tscn").instance()
+					piece = preload("res://Pieces/nodes/Pawn.tscn").instance()
 					piece.piece_color = "White"
 				_:
 					piece = null

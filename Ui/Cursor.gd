@@ -17,7 +17,7 @@ var disabled : bool = false
 var movement_step setget set_movement_step
 var hovering_piece setget set_hovering_piece
 var selected_piece setget set_selected_piece
-
+signal on_hovering_piece()
 
 func set_movement_step(v):
 	movement_step = v

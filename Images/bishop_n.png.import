@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bishop_n.png-f5e141a66167c186f3c301f80da9a5a4.stex"
+path="res://.import/bishop_n.png-6f0c9b7acd992f53e93ec10b1f17347e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Source/Images/bishop_n.png"
-dest_files=[ "res://.import/bishop_n.png-f5e141a66167c186f3c301f80da9a5a4.stex" ]
+source_file="res://Images/bishop_n.png"
+dest_files=[ "res://.import/bishop_n.png-6f0c9b7acd992f53e93ec10b1f17347e.stex" ]
 
 [params]
 
