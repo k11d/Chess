@@ -7,8 +7,8 @@ var screen
 var tile_size := Vector2(128,128)
 var board : Board
 var tiles := {}      	 # grid positions -> instances
-var white_player : Node2D
-var black_player : Node2D
+var white_player : Node
+var black_player : Node
 var _moving_pieces : Array = []
 var cursor : Cursor = null
 var turn_state : Global.TurnState
@@ -151,7 +151,7 @@ func highlight_position(pos, col) -> void:
 func clear_highlights() -> void:
 	for child in get_children():
 		if child is Marker:
-			board.remove_child(child)
+			remove_child(child)
 			child.queue_free()
 
 func _on_Cursor_area_entered(area) -> void:
@@ -164,6 +164,7 @@ func _on_Cursor_area_entered(area) -> void:
 				if tp and typeof(tp) == TYPE_ARRAY:
 					for tgt in tp:
 						highlight_position(tgt, Color.cyan)
+			
 
 func _on_Cursor_area_exited(area) -> void:
 	if !cursor.disabled:
@@ -195,11 +196,12 @@ func _input(event):
 
 	if event.is_action_pressed("pick_piece"):
 		if turn_state.state == 'ToPick':
-			turn_state.player_picked()
 			cursor.selected_piece = cursor.hovering_piece
-			cursor.selected_piece.picked_at = cursor.selected_piece.global_position
-			cursor.legal_target_positions = cursor.selected_piece.get_available_moves()
-			print("Legal moves:", cursor.legal_target_positions)
+			if cursor.selected_piece:
+				turn_state.player_picked()
+				cursor.selected_piece.picked_at = cursor.selected_piece.global_position
+				cursor.legal_target_positions = cursor.selected_piece.get_available_moves()
+				print("Legal moves:", cursor.legal_target_positions)
 		
 		elif turn_state.state == 'ToPlay':
 			var target = real2boardpos(cursor.global_position)

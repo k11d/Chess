@@ -8,7 +8,7 @@ var glow : Sprite
 var anim_player : AnimationPlayer
 var grid_position : Vector2
 var glowing : bool = false
-var enemy_player : Node2D
+var enemy_player : Node
 var piece_color : String
 var picked_at : Vector2
 var history : Array

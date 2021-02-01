@@ -12,9 +12,9 @@ black_mod_color = Color( 0.6, 0.0588235, 0.709804, 1 )
 [node name="Board" type="Node2D" parent="."]
 script = ExtResource( 4 )
 
-[node name="WhitePlayer" type="Node2D" parent="."]
+[node name="WhitePlayer" type="Node" parent="."]
 
-[node name="BlackPlayer" type="Node2D" parent="."]
+[node name="BlackPlayer" type="Node" parent="."]
 
 [node name="Cursor" parent="." instance=ExtResource( 3 )]
 [connection signal="area_entered" from="Cursor" to="." method="_on_Cursor_area_entered"]

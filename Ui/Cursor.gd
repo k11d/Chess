@@ -14,21 +14,11 @@ onready var HUDs := {
 	selected = $HUD/Selected
 }
 var disabled : bool = false
-var movement_step setget set_movement_step
-var hovering_piece setget set_hovering_piece
-var selected_piece setget set_selected_piece
+var movement_step
+var hovering_piece 
+var selected_piece
 var legal_target_positions := []
 
-
-func set_movement_step(v):
-	movement_step = v
-
-func set_hovering_piece(p):
-	hovering_piece = p
-
-
-func set_selected_piece(p):
-	selected_piece = p
 
 func update_on_hud_position(real_position=null, grid_position=null) -> void:
 	if typeof(grid_position) == TYPE_VECTOR2:
@@ -74,8 +64,10 @@ func toggle_hud() -> void:
 
 ######################################################
 
+func _ready():
+	toggle_hud()
+
 func _process(_delta: float) -> void:
 	move_snapped(get_global_mouse_position())
 	if selected_piece:
 		selected_piece.global_position = global_position
-#		selected_piece.grid_position = 	real2boardpos(position)
