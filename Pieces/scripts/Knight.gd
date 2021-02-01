@@ -17,10 +17,10 @@ func get_available_moves():
 		Vector2(x + 1, y + 2)
 	]
 	
-	var allies_positions = Global.piece_positions("White")
+	var allies_positions = Global.piece_positions(piece_color)
 	var final := []
 	for pos in candidates:
-		if pos in allies_positions:
+		if pos.x < 0 or pos.x > 7 or pos.y < 0 or pos.y > 7 or pos in allies_positions:
 			continue
 		else:
 			final.append(pos)

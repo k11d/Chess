@@ -17,30 +17,18 @@ var disabled : bool = false
 var movement_step setget set_movement_step
 var hovering_piece setget set_hovering_piece
 var selected_piece setget set_selected_piece
-signal on_hovering_piece()
+var legal_target_positions := []
+
 
 func set_movement_step(v):
 	movement_step = v
 
 func set_hovering_piece(p):
 	hovering_piece = p
-	if hovering_piece:
-		HUDs['hovering'].text = str(hovering_piece)
-		HUDs['hovering'].visible = true
-	else:
-		HUDs['hovering'].visible = false
+
 
 func set_selected_piece(p):
 	selected_piece = p
-	if selected_piece:
-		HUDs['selected'].text = str(hovering_piece)
-		HUDs['selected'].visible = true
-		var pos = selected_piece.global_position
-		selected_piece.get_parent().remove_child(selected_piece)
-		add_child(selected_piece)
-		selected_piece.global_position = pos
-	else:
-		HUDs['selected'].visible = false
 
 func update_on_hud_position(real_position=null, grid_position=null) -> void:
 	if typeof(grid_position) == TYPE_VECTOR2:
@@ -56,18 +44,18 @@ func update_on_hud_position(real_position=null, grid_position=null) -> void:
 		HUDs['grid_x_position'].text = '-'
 		HUDs['grid_y_position'].text = '-'
 
-func real2boardpos(pos, t_size):
-	# For calling convienience - using Game's method  
+func real2boardpos(pos, t_size=null):
+	# For convienience - although using Game's method  
 	return get_node("/root/Game").real2boardpos(pos, t_size)
 
-func board2realpos(bp, t_size):
-	# For calling convienience - using Game's method  
+func board2realpos(bp, t_size=null):
+	# For convienience - although using Game's method  
 	return get_node("/root/Game").board2realpos(bp, t_size)
 
 func move_snapped(real_position : Vector2) -> void:
-	# Note: `real_position` is not the final position of the cursor -
-	#		 it will instead be snapped to the closest valid position
-	#		 within the grid.
+	# Note: `real_position` is not the final position of the cursor.
+	# It will instead be snapped to the closest valid position within the grid.
+	# (ie: on the closest tile's center)
 	# Use `move_freely` for an arbitrary destination.
 	var bp = self.real2boardpos(real_position, movement_step)
 	bp.y = max(0, min(bp.y, 7))
@@ -77,7 +65,7 @@ func move_snapped(real_position : Vector2) -> void:
 		update_on_hud_position(real_position, bp)
 
 func move_freely(real_position : Vector2) -> void:
-	# Moves the cursor to an arbitrary `real_postition` destination
+	# Moves the cursor to an arbitrary destination
 	position = real_position
 	update_on_hud_position(real_position, null)
 
@@ -88,3 +76,6 @@ func toggle_hud() -> void:
 
 func _process(_delta: float) -> void:
 	move_snapped(get_global_mouse_position())
+	if selected_piece:
+		selected_piece.global_position = global_position
+#		selected_piece.grid_position = 	real2boardpos(position)

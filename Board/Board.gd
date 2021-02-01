@@ -1,4 +1,5 @@
 extends Node2D
+class_name Board
 
 var _tile = load("res://Board/Tile.tscn")
 var tile_size := Vector2(126, 126)

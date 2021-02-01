@@ -4,9 +4,12 @@ class_name Bishop, "res://Images/bishop.png"
 
 
 func get_available_moves():
-	
-	var enemy_positions  = Global.piece_positions("Black")
-	var allies_positions = Global.piece_positions("White")
+	var allies_positions = Global.piece_positions(piece_color)
+	var enemy_positions
+	if piece_color == "White":
+		enemy_positions = Global.piece_positions("Black")
+	else:
+		enemy_positions = Global.piece_positions("White")
 	
 	var candidates := []
 	var x := grid_position.x
