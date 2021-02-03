@@ -4,19 +4,16 @@ class_name Cursor, "res://Images/cursor.png"
 
 onready var game := get_node('/root/Game')
 onready var HUDs := {
-    grid_x_position = $HUD/Position/Grid/X,
-    real_x_position = $HUD/Position/Real/X,
-    grid_y_position = $HUD/Position/Grid/Y,
-    real_y_position = $HUD/Position/Real/Y,
-    current_player = $HUD/Game/Player,
-    current_state = $HUD/Game/State,
-    hovering = $HUD/Hovering,
-    selected = $HUD/Selected
+    grid_x_position = $HUD/HUD/Position/Grid/X,
+    real_x_position = $HUD/HUD/Position/Real/X,
+    grid_y_position = $HUD/HUD/Position/Grid/Y,
+    real_y_position = $HUD/HUD/Position/Real/Y
 }
 var disabled : bool = false
+var free_mode : bool = false
 var movement_step
-var hovering_piece 
-var selected_piece
+var hovering_piece setget set_hovering_piece
+var selected_piece setget set_selected_piece
 var legal_target_positions := []
 
 
@@ -53,7 +50,6 @@ func move_snapped(real_position : Vector2) -> void:
     if real2boardpos(position, movement_step) != bp:
         position = board2realpos(bp, movement_step)
         update_on_hud_position(real_position, bp)
-        Global.register_game_state(game.dict_game())
 
 func move_freely(real_position : Vector2) -> void:
     # Moves the cursor to an arbitrary destination
@@ -65,10 +61,18 @@ func toggle_hud() -> void:
 
 ######################################################
 
-func _ready():
-    toggle_hud()
+
+func set_hovering_piece(p):
+    hovering_piece = p
+
+func set_selected_piece(p):
+    selected_piece = p
 
 func _process(_delta: float) -> void:
-    move_snapped(get_global_mouse_position())
-    if selected_piece:
-        selected_piece.global_position = global_position
+    Global.register_game_state(game.dict_game())
+    if free_mode:
+        move_freely(get_global_mouse_position())
+    else:
+        move_snapped(get_global_mouse_position())
+        if selected_piece:
+            selected_piece.global_position = global_position

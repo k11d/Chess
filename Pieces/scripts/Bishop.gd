@@ -2,7 +2,6 @@ extends ChessPiece
 class_name Bishop, "res://Images/bishop.png"
 
 
-
 func get_available_moves():
     var allies_positions = Global.piece_positions(piece_color)
     var enemy_positions

@@ -11,16 +11,16 @@ var white_player : Player
 var black_player : Player
 var cursor : Cursor = null
 var turn_state : Global.TurnState
-var marker_scene : PackedScene = preload("res://Ui/Marker.tscn")
+const marker_scene : PackedScene = preload("res://Ui/Marker.tscn")
 
 
 const _start_positions := [
     "rnbkqbnr",
     "pppppppp",
-    "00000000",	
-    "00000000",	
-    "00000000",	
-    "00000000",	
+    "00000000",
+    "00000000",
+    "00000000",
+    "00000000",
     "PPPPPPPP",
     "RNBKQBNR"
 ]
@@ -37,14 +37,14 @@ func _ready() -> void:
     
     board = get_node("Board")
     board.create_grid(tiles)
-    Global.register_game_state(init_pieces(_start_positions))
+    init_pieces(_start_positions)
+    Global.register_game_state(dict_game())
     turn_state = Global.TurnState.new()
     cursor.disabled = false
 
 
-func init_pieces(grid : Array) -> Dictionary:
+func init_pieces(grid : Array):
     var pos : Vector2
-    var new_grid := {}
     for y in range(8):
         for x in range(8):
             pos = Vector2(x, y)
@@ -52,44 +52,43 @@ func init_pieces(grid : Array) -> Dictionary:
             var piece = null
             match c:
                 "r":
-                    piece = preload("res://Pieces/nodes/Rook.tscn").instance()
+                    piece = load("res://Pieces/nodes/Rook.tscn").instance()
                     piece.piece_color = "Black"
                 "n":
-                    piece = preload("res://Pieces/nodes/Knight.tscn").instance()
+                    piece = load("res://Pieces/nodes/Knight.tscn").instance()
                     piece.piece_color = "Black"
                 "b":
-                    piece = preload("res://Pieces/nodes/Bishop.tscn").instance()
+                    piece = load("res://Pieces/nodes/Bishop.tscn").instance()
                     piece.piece_color = "Black"
                 "k":
-                    piece = preload("res://Pieces/nodes/King.tscn").instance()
+                    piece = load("res://Pieces/nodes/King.tscn").instance()
                     piece.piece_color = "Black"
                 "q":
-                    piece = preload("res://Pieces/nodes/Queen.tscn").instance()
+                    piece = load("res://Pieces/nodes/Queen.tscn").instance()
                     piece.piece_color = "Black"
                 "p":
-                    piece = preload("res://Pieces/nodes/Pawn.tscn").instance()
+                    piece = load("res://Pieces/nodes/Pawn.tscn").instance()
                     piece.piece_color = "Black"
                 "R":
-                    piece = preload("res://Pieces/nodes/Rook.tscn").instance()
+                    piece = load("res://Pieces/nodes/Rook.tscn").instance()
                     piece.piece_color = "White"
                 "N":
-                    piece = preload("res://Pieces/nodes/Knight.tscn").instance()
+                    piece = load("res://Pieces/nodes/Knight.tscn").instance()
                     piece.piece_color = "White"
                 "B":
-                    piece = preload("res://Pieces/nodes/Bishop.tscn").instance()
+                    piece = load("res://Pieces/nodes/Bishop.tscn").instance()
                     piece.piece_color = "White"
                 "K":
-                    piece = preload("res://Pieces/nodes/King.tscn").instance()
+                    piece = load("res://Pieces/nodes/King.tscn").instance()
                     piece.piece_color = "White"
                 "Q":
-                    piece = preload("res://Pieces/nodes/Queen.tscn").instance()
+                    piece = load("res://Pieces/nodes/Queen.tscn").instance()
                     piece.piece_color = "White"
                 "P":
-                    piece = preload("res://Pieces/nodes/Pawn.tscn").instance()
+                    piece = load("res://Pieces/nodes/Pawn.tscn").instance()
                     piece.piece_color = "White"
                 _:
                     piece = null
-            new_grid[pos] = piece
             if piece == null:
                 continue
             else:
@@ -101,7 +100,6 @@ func init_pieces(grid : Array) -> Dictionary:
                 else:
                     piece.modulate = black_mod_color				
                     black_player.add_child(piece)
-    return new_grid
 
 func dict_game_string() -> Dictionary:
     # Get a Dictionary representation of the board
@@ -205,12 +203,14 @@ func clear_highlights() -> void:
 
 func _on_Cursor_area_entered(area) -> void:
     if !cursor.disabled:
+        if turn_state.state == 'ToPick':
+            clear_highlights()
         if area is ChessPiece:
             cursor.hovering_piece = area
-            area.toggle_glow()
             if turn_state.state == 'ToPick':
                 var tp = area.get_available_moves()
                 if tp:
+                    area.toggle_glow_on()
                     if tp is Targets:
                         for i in range(len(tp.targets)):
                             highlight_position(tp.targets[i], tp.colors[i])
@@ -221,10 +221,10 @@ func _on_Cursor_area_entered(area) -> void:
 func _on_Cursor_area_exited(area) -> void:
     if !cursor.disabled:
         if area is ChessPiece:
-            area.toggle_glow()
+            area.toggle_glow_off()
             cursor.hovering_piece = null
-            if turn_state.state == 'ToPick':
-                clear_highlights()
+        if turn_state.state == "ToPick":
+            clear_highlights()
 
 func cancel_play():
     turn_state.player_cancelled()

@@ -27,12 +27,11 @@ func _ready() -> void:
     if get_parent().name.begins_with("White"):
         enemy_player = get_node("/root/Game/BlackPlayer")
     else:
-        enemy_player = get_node("/root/Game/WhitePlayer")		
+        enemy_player = get_node("/root/Game/WhitePlayer")
     if anim_player:
         anim_player.play("Phaser")	
         anim_player.seek(0.5, true)
         anim_player.stop()
-#	targeted = Global.TargetedPositions.new()
 
 func _to_string() -> String:
     var s : String = ""
@@ -41,13 +40,18 @@ func _to_string() -> String:
     s += " (" + str(grid_position.x) + " " + str(grid_position.y) + ") "
     return s
 
-func toggle_glow() -> void:
-    glowing = !glowing
+func toggle_glow_on() -> void:
+    glowing = true
+
+func toggle_glow_off() -> void:
+    glowing = false
 
 func add_history(pos : Vector2) -> void:
     history.append(pos)
 
+
 #########################################################
+
 
 func _process(_delta) -> void:
     if glowing:

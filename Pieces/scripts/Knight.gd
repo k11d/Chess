@@ -31,5 +31,4 @@ func get_available_moves():
             final.add_target(pos, Color.red)
         else:
             final.add_target(pos, Color.blue)
-            
     return final
