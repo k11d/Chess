@@ -22,9 +22,9 @@ func get_available_moves():
         if p in allies_positions:
             break
         if p in enemy_positions:
-            targets.add_target(p, Color.red)
+            targets.add_target(p, Color.red, true)
             break
-        targets.add_target(p, Color.blue)
+        targets.add_target(p, Color.blue, false)
     # WEST			
     p = Vector2(x, y)
     while p.x > 0:
@@ -32,9 +32,9 @@ func get_available_moves():
         if p in allies_positions:
             break
         elif p in enemy_positions:
-            targets.add_target(p, Color.red)
+            targets.add_target(p, Color.red, true)
             break
-        targets.add_target(p, Color.blue)
+        targets.add_target(p, Color.blue, false)
     # SOUTH		
     p = Vector2(x, y)
     while p.y < 7:
@@ -42,9 +42,9 @@ func get_available_moves():
         if p in allies_positions:
             break
         elif p in enemy_positions:
-            targets.add_target(p, Color.red)
+            targets.add_target(p, Color.red, true)
             break
-        targets.add_target(p, Color.blue)
+        targets.add_target(p, Color.blue, false)
     # NORTH
     p = Vector2(x, y)
     while p.y > 0:
@@ -52,8 +52,8 @@ func get_available_moves():
         if p in allies_positions:
             break
         elif p in enemy_positions:
-            targets.add_target(p, Color.red)
+            targets.add_target(p, Color.red, true)
             break
-        targets.add_target(p, Color.blue)
+        targets.add_target(p, Color.blue, false)
     return targets
 

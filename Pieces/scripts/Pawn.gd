@@ -32,10 +32,10 @@ func _as_white():
                 candidates.add_target(pos, Color.blue)
     pos = Vector2(x - 1, y - 1)
     if pos in enemy_positions:
-        candidates.add_target(pos, Color.red)
+        candidates.add_target(pos, Color.red, true)
     pos = Vector2(x + 1 , y - 1)
     if pos in enemy_positions:
-        candidates.add_target(pos, Color.red)
+        candidates.add_target(pos, Color.red, true)
     return candidates
 
 func _as_black():
@@ -55,8 +55,8 @@ func _as_black():
                 candidates.add_target(pos, Color.blue)
     pos = Vector2(x + 1, y + 1)
     if pos in enemy_positions:
-        candidates.add_target(pos, Color.red)
+        candidates.add_target(pos, Color.red, true)
     pos = Vector2(x - 1 , y + 1)
     if pos in enemy_positions:
-        candidates.add_target(pos, Color.red)
+        candidates.add_target(pos, Color.red, true)
     return candidates

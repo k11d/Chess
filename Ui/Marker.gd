@@ -5,8 +5,9 @@ var color setget set_color
 
 
 func start_loop():
-	$AnimationPlayer.play("Idle")
+    $AnimationPlayer.play("Idle")
 
 func set_color(col):
-	color = col
-	$Sprite.modulate = color
+    color = col
+    $Sprite.self_modulate = color
+    $Sprite.self_modulate.a = 0.6

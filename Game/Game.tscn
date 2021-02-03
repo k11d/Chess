@@ -21,6 +21,5 @@ script = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Cursor" parent="." instance=ExtResource( 3 )]
-visible = false
 [connection signal="area_entered" from="Cursor" to="." method="_on_Cursor_area_entered"]
 [connection signal="area_exited" from="Cursor" to="." method="_on_Cursor_area_exited"]

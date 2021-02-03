@@ -101,41 +101,52 @@ func init_pieces(grid : Array):
                     piece.modulate = black_mod_color				
                     black_player.add_child(piece)
 
-func dict_game_string() -> Dictionary:
-    # Get a Dictionary representation of the board
+func string_game() -> Array:
+    # Get a string representation of the board (like _start_positions)
+    # Example:
+    # [RNBKQBNR, PPPPPPPP, 00000000, 00000000, 00000000, 00000p00, ppppp0pp, rnbkqbnr]
+    
     var d := {}
-    for p in white_player.get_children():
-        if "Pawn" in p.name:
-            d[p.grid_position] = 'p'
-        elif "Rook" in p.name:
-            d[p.grid_position] = 'r'
-        elif "Bishop" in p.name:
-            d[p.grid_position] = 'b'
-        elif "Knight" in p.name:
-            d[p.grid_position] = 'n'
-        elif "Queen" in p.name:
-            d[p.grid_position] = 'q'
-        elif "King" in p.name:
-            d[p.grid_position] = 'k'
-    for p in black_player.get_children():
-        if "Pawn" in p.name:
-            d[p.grid_position] = 'P'
-        elif "Rook" in p.name:
-            d[p.grid_position] = 'R'
-        elif "Bishop" in p.name:
-            d[p.grid_position] = 'B'
-        elif "Knight" in p.name:
-            d[p.grid_position] = 'N'
-        elif "Queen" in p.name:
-            d[p.grid_position] = 'Q'
-        elif "King" in p.name:
-            d[p.grid_position] = 'K'
+    for p in white_player.get_children() + black_player.get_children():
+        if p.piece_color == 'White':
+            if "Pawn" in p.name:
+                d[p.grid_position] = 'p'
+            elif "Rook" in p.name:
+                d[p.grid_position] = 'r'
+            elif "Bishop" in p.name:
+                d[p.grid_position] = 'b'
+            elif "Knight" in p.name:
+                d[p.grid_position] = 'n'
+            elif "Queen" in p.name:
+                d[p.grid_position] = 'q'
+            elif "King" in p.name:
+                d[p.grid_position] = 'k'
+        else:
+            if "Pawn" in p.name:
+                d[p.grid_position] = 'P'
+            elif "Rook" in p.name:
+                d[p.grid_position] = 'R'
+            elif "Bishop" in p.name:
+                d[p.grid_position] = 'B'
+            elif "Knight" in p.name:
+                d[p.grid_position] = 'N'
+            elif "Queen" in p.name:
+                d[p.grid_position] = 'Q'
+            elif "King" in p.name:
+                d[p.grid_position] = 'K'
+                
+    var grid_state := []
     for y in range(8):
+        var row := ""
         for x in range(8):
             var p = Vector2(x,y)
-            if !(p in d):
-                d[p] = '0'
-    return d
+            if p in d:
+                row += d[Vector2(x,y)]
+            else:
+                row += "0"
+        grid_state.append(row)
+    return grid_state
+
 
 func dict_game() -> Dictionary:
     # Get a Dictionary representation of the board
@@ -195,6 +206,18 @@ func highlight_position(pos, col) -> void:
     m.start_loop()
     add_child(m)
 
+func mark_available_moves(piece):
+    var tp = piece.get_available_moves()
+    if tp:
+        piece.toggle_glow_on()
+        if tp is Targets:
+            for i in range(len(tp.targets)):
+                highlight_position(tp.targets[i], tp.colors[i])
+        else:
+            for tgt in tp:
+                highlight_position(tgt, Color.cyan)
+
+
 func clear_highlights() -> void:
     for child in get_children():
         if child is Marker:
@@ -208,15 +231,8 @@ func _on_Cursor_area_entered(area) -> void:
         if area is ChessPiece:
             cursor.hovering_piece = area
             if turn_state.state == 'ToPick':
-                var tp = area.get_available_moves()
-                if tp:
-                    area.toggle_glow_on()
-                    if tp is Targets:
-                        for i in range(len(tp.targets)):
-                            highlight_position(tp.targets[i], tp.colors[i])
-                    else:
-                        for tgt in tp:
-                            highlight_position(tgt, Color.cyan)
+                mark_available_moves(area)
+
 
 func _on_Cursor_area_exited(area) -> void:
     if !cursor.disabled:
@@ -225,6 +241,25 @@ func _on_Cursor_area_exited(area) -> void:
             cursor.hovering_piece = null
         if turn_state.state == "ToPick":
             clear_highlights()
+
+func validate_play(piece, target):
+    var captured
+    for p in Global.pieces():
+        if p.grid_position == target:
+            captured = p
+            break
+    if captured:
+        print("Capturing :", captured)
+        captured.queue_free()
+    turn_state.player_played()
+    clear_highlights()
+    cursor.selected_piece.add_history(real2boardpos(cursor.selected_piece.picked_at))
+    cursor.selected_piece.global_position = cursor.global_position
+    cursor.selected_piece.grid_position = target
+    if cursor.selected_piece.has_method("set_moved"):
+        cursor.selected_piece.set_moved()
+    Global.update_piece_position(cursor.selected_piece)
+    cursor.selected_piece = null    
 
 func cancel_play():
     turn_state.player_cancelled()
@@ -236,7 +271,7 @@ func cancel_play():
                 cursor.selected_piece.never_moved = true
         cursor.selected_piece = null
         cursor.legal_target_positions.clear()
-        
+
 
 func _input(event):
     if event.is_action_pressed("DEBUG_randomize"):
@@ -253,34 +288,11 @@ func _input(event):
                 turn_state.player_picked()
                 cursor.selected_piece.picked_at = cursor.selected_piece.global_position
                 var m = cursor.selected_piece.get_available_moves()
-                if m:
-                     cursor.legal_target_positions = m.targets
-                print("Legal moves:", cursor.legal_target_positions)
+                cursor.legal_target_positions = m
         
         elif turn_state.state == 'ToPlay':
-            var target = real2boardpos(cursor.global_position)
-            if target in cursor.legal_target_positions:
-                clear_highlights()
-                turn_state.player_played()
-                
-                var enemies
-                if turn_state.now_playing == "White":
-                    enemies = Global.pieces("Black")
-                else:
-                    enemies = Global.pieces("White")
-                var captured_enemy = null
-                for pce in enemies:
-                    if pce.grid_position == target:
-                        captured_enemy = pce
-                        break
-                if captured_enemy:
-                    captured_enemy.queue_free()
-                cursor.selected_piece.add_history(real2boardpos(cursor.selected_piece.picked_at))
-                cursor.selected_piece.global_position = cursor.global_position
-                cursor.selected_piece.grid_position = target
-                if cursor.selected_piece.has_method("set_moved"):
-                    cursor.selected_piece.set_moved()
-                Global.update_piece_position(cursor.selected_piece)
-                cursor.selected_piece = null
+            var cursor_target = real2boardpos(cursor.global_position)
+            if cursor_target in cursor.legal_target_positions.targets:
+                validate_play(cursor.selected_piece, cursor_target)
             else:
                 cancel_play()

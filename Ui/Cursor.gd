@@ -14,7 +14,7 @@ var free_mode : bool = false
 var movement_step
 var hovering_piece setget set_hovering_piece
 var selected_piece setget set_selected_piece
-var legal_target_positions := []
+var legal_target_positions : Targets
 
 
 func update_on_hud_position(real_position=null, grid_position=null) -> void:
@@ -62,8 +62,12 @@ func toggle_hud() -> void:
 ######################################################
 
 
-func set_hovering_piece(p):
+func set_hovering_piece(p : ChessPiece):
     hovering_piece = p
+    if hovering_piece:
+        $HUD/HUD/LegalMoves.text = str(hovering_piece.get_available_moves())
+    else:
+        $HUD/HUD/LegalMoves.text = ""
 
 func set_selected_piece(p):
     selected_piece = p
