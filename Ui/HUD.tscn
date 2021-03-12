@@ -1,0 +1,156 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Ui/CursorUI.theme" type="Theme" id=1]
+
+[node name="HUD" type="CanvasLayer"]
+layer = 2
+
+[node name="HUD" type="VBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_top = 0.051
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -128.177
+margin_top = 3.8147e-06
+margin_right = -9.17664
+grow_horizontal = 2
+rect_scale = Vector2( 0.821989, 0.950173 )
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title0" type="Label" parent="HUD"]
+margin_right = 154.0
+margin_bottom = 44.0
+text = "Cursor:"
+valign = 1
+
+[node name="Position" type="VBoxContainer" parent="HUD"]
+margin_top = 48.0
+margin_right = 154.0
+margin_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Grid" type="HBoxContainer" parent="HUD/Position"]
+margin_right = 154.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
+
+[node name="X" type="Label" parent="HUD/Position/Grid"]
+margin_right = 62.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+custom_colors/font_color = Color( 0.0196078, 0.45098, 1, 1 )
+text = "X"
+align = 2
+valign = 3
+max_lines_visible = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sep" type="Label" parent="HUD/Position/Grid"]
+margin_left = 66.0
+margin_right = 88.0
+margin_bottom = 44.0
+size_flags_vertical = 5
+text = ":"
+align = 1
+valign = 1
+max_lines_visible = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Y" type="Label" parent="HUD/Position/Grid"]
+margin_left = 92.0
+margin_right = 154.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+custom_colors/font_color = Color( 0.996078, 0.0196078, 0.0196078, 1 )
+text = "Y"
+valign = 1
+max_lines_visible = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sep" type="Label" parent="HUD/Position"]
+visible = false
+margin_top = 48.0
+margin_right = 244.0
+margin_bottom = 92.0
+size_flags_horizontal = 3
+text = "-------"
+align = 1
+valign = 1
+
+[node name="Real" type="HBoxContainer" parent="HUD/Position"]
+margin_top = 48.0
+margin_right = 154.0
+margin_bottom = 92.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
+
+[node name="X" type="Label" parent="HUD/Position/Real"]
+margin_right = 62.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+custom_colors/font_color = Color( 0.0196078, 0.45098, 1, 1 )
+text = "X"
+align = 2
+valign = 3
+max_lines_visible = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sep" type="Label" parent="HUD/Position/Real"]
+margin_left = 66.0
+margin_right = 88.0
+margin_bottom = 44.0
+size_flags_vertical = 5
+text = ":"
+align = 1
+valign = 1
+max_lines_visible = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Y" type="Label" parent="HUD/Position/Real"]
+margin_left = 92.0
+margin_right = 154.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+custom_colors/font_color = Color( 0.996078, 0.0196078, 0.0196078, 1 )
+text = "Y"
+valign = 1
+max_lines_visible = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title1" type="Label" parent="HUD"]
+margin_top = 144.0
+margin_right = 154.0
+margin_bottom = 188.0
+text = "Moves:"
+valign = 1
+
+[node name="LegalMoves" type="Label" parent="HUD"]
+margin_top = 192.0
+margin_right = 154.0
+margin_bottom = 236.0
+align = 1
+valign = 1
