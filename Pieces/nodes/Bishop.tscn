@@ -58,6 +58,9 @@ collision_layer = 2
 collision_mask = 3
 script = ExtResource( 1 )
 self_modulate_color = Color( 1, 1, 1, 1 )
+sprite = NodePath("Sprite")
+glow = NodePath("Glow")
+anim_player = NodePath("AnimationPlayer")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( 17.5, -55.4, 17.5, -50.3, 28.5, -39.3, 28.5, -34.6, 24.2, -30.5, 34.3, -30.5, 39.5, -25.3, 39.5, -23.2, 43.5, -18.2, 43.5, 13.5, 41.8, 13.5, 34.7, 28.5, 48.3, 28.5, 64.5, 44.7, 64.5, 62.5, 18.3, 62.5, 5, 54.5, -3.5, 54.5, -16.6, 62.5, -63.3, 62.5, -64.5, 61.3, -64.5, 44.7, -48.3, 28.5, -33.5, 28.5, -33.5, 27.1, -43.5, 12.1, -43.5, -19.5, -41.8, -19.5, -36.8, -31.5, -35.3, -31.5, -17.5, -49.3, -17.5, -55.4, -9.5, -62.4, 9.5, -62.5 )
