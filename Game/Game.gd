@@ -307,11 +307,9 @@ func _input(event):
 				if turn_state.now_playing == cursor.hovering_piece.piece_color:
 					cursor.selected_piece = cursor.hovering_piece
 					cursor.selected_piece.picked_at = cursor.selected_piece.global_position
-			if cursor.selected_piece:
-				turn_state.player_picked()
-				cursor.selected_piece.picked_at = cursor.selected_piece.global_position
-				cursor.legal_target_positions = cursor.selected_piece.get_available_moves()
-		
+					cursor.legal_target_positions = cursor.selected_piece.get_available_moves()
+					turn_state.player_picked()
+
 		elif turn_state.state == 'ToPlay':
 			var cursor_target = real2boardpos(cursor.global_position)
 			if cursor_target in cursor.legal_target_positions.targets:
