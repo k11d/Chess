@@ -14,16 +14,16 @@ legal_moves = NodePath("MarginContainer/HUD/CursorPosition/VBoxContainer/LegalMo
 game_state = NodePath("MarginContainer/HUD/VSplitContainer/GameState/Label")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-anchor_left = 1.0
-anchor_right = 1.0
+visible = false
+anchor_left = 0.776
+anchor_right = 1.002
 anchor_bottom = 1.0
-margin_left = -268.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HUD" type="VSplitContainer" parent="MarginContainer"]
-margin_right = 268.0
+margin_right = 361.0
 margin_bottom = 1000.0
 grow_horizontal = 2
 theme = ExtResource( 1 )
@@ -31,7 +31,7 @@ split_offset = 90
 dragger_visibility = 2
 
 [node name="VSplitContainer" type="VSplitContainer" parent="MarginContainer/HUD"]
-margin_right = 268.0
+margin_right = 361.0
 margin_bottom = 590.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -39,15 +39,16 @@ split_offset = -250
 dragger_visibility = 2
 
 [node name="PlayerTurn" type="Panel" parent="MarginContainer/HUD/VSplitContainer"]
-margin_right = 268.0
+margin_right = 361.0
 margin_bottom = 45.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Player" type="HBoxContainer" parent="MarginContainer/HUD/VSplitContainer/PlayerTurn"]
-margin_top = 4.0
-margin_right = 268.0
-margin_bottom = 48.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 606.0
+margin_bottom = 51.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -67,15 +68,16 @@ valign = 1
 
 [node name="GameState" type="Panel" parent="MarginContainer/HUD/VSplitContainer"]
 margin_top = 45.0
-margin_right = 268.0
+margin_right = 361.0
 margin_bottom = 590.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="MarginContainer/HUD/VSplitContainer/GameState"]
-margin_top = 4.0
-margin_right = 268.0
-margin_bottom = 48.0
+margin_left = 7.0
+margin_top = 244.0
+margin_right = 606.0
+margin_bottom = 288.0
 text = "-"
 align = 1
 valign = 1
@@ -85,20 +87,22 @@ __meta__ = {
 
 [node name="CursorPosition" type="Panel" parent="MarginContainer/HUD"]
 margin_top = 590.0
-margin_right = 268.0
+margin_right = 361.0
 margin_bottom = 1000.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HUD/CursorPosition"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 606.0
+margin_bottom = 403.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Title2" type="Label" parent="MarginContainer/HUD/CursorPosition/VBoxContainer"]
-margin_right = 268.0
+margin_right = 599.0
 margin_bottom = 44.0
 text = "Cursor:"
 align = 1
@@ -106,21 +110,21 @@ valign = 1
 
 [node name="Position" type="VBoxContainer" parent="MarginContainer/HUD/CursorPosition/VBoxContainer"]
 margin_top = 48.0
-margin_right = 268.0
+margin_right = 599.0
 margin_bottom = 140.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
 [node name="Grid" type="HBoxContainer" parent="MarginContainer/HUD/CursorPosition/VBoxContainer/Position"]
-margin_right = 268.0
+margin_right = 599.0
 margin_bottom = 44.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 2
 
 [node name="X" type="Label" parent="MarginContainer/HUD/CursorPosition/VBoxContainer/Position/Grid"]
-margin_right = 119.0
+margin_right = 284.0
 margin_bottom = 44.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
@@ -133,8 +137,8 @@ __meta__ = {
 }
 
 [node name="Sep" type="Label" parent="MarginContainer/HUD/CursorPosition/VBoxContainer/Position/Grid"]
-margin_left = 123.0
-margin_right = 145.0
+margin_left = 288.0
+margin_right = 310.0
 margin_bottom = 44.0
 size_flags_vertical = 5
 text = ":"
@@ -146,8 +150,8 @@ __meta__ = {
 }
 
 [node name="Y" type="Label" parent="MarginContainer/HUD/CursorPosition/VBoxContainer/Position/Grid"]
-margin_left = 149.0
-margin_right = 268.0
+margin_left = 314.0
+margin_right = 599.0
 margin_bottom = 44.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
@@ -172,14 +176,14 @@ valign = 1
 
 [node name="Real" type="HBoxContainer" parent="MarginContainer/HUD/CursorPosition/VBoxContainer/Position"]
 margin_top = 48.0
-margin_right = 268.0
+margin_right = 599.0
 margin_bottom = 92.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 2
 
 [node name="X" type="Label" parent="MarginContainer/HUD/CursorPosition/VBoxContainer/Position/Real"]
-margin_right = 119.0
+margin_right = 284.0
 margin_bottom = 44.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
@@ -192,8 +196,8 @@ __meta__ = {
 }
 
 [node name="Sep" type="Label" parent="MarginContainer/HUD/CursorPosition/VBoxContainer/Position/Real"]
-margin_left = 123.0
-margin_right = 145.0
+margin_left = 288.0
+margin_right = 310.0
 margin_bottom = 44.0
 size_flags_vertical = 5
 text = ":"
@@ -205,8 +209,8 @@ __meta__ = {
 }
 
 [node name="Y" type="Label" parent="MarginContainer/HUD/CursorPosition/VBoxContainer/Position/Real"]
-margin_left = 149.0
-margin_right = 268.0
+margin_left = 314.0
+margin_right = 599.0
 margin_bottom = 44.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
@@ -221,14 +225,14 @@ __meta__ = {
 
 [node name="Title3" type="Label" parent="MarginContainer/HUD/CursorPosition/VBoxContainer"]
 margin_top = 144.0
-margin_right = 268.0
+margin_right = 599.0
 margin_bottom = 188.0
 text = "Moves:"
 valign = 1
 
 [node name="LegalMoves" type="Label" parent="MarginContainer/HUD/CursorPosition/VBoxContainer"]
 margin_top = 192.0
-margin_right = 268.0
+margin_right = 599.0
 margin_bottom = 236.0
 text = "[]"
 align = 1
