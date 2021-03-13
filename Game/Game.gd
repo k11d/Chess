@@ -245,12 +245,12 @@ func clear_highlights() -> void:
 func _on_Cursor_area_entered(area) -> void:
 	if !cursor.disabled:
 		if area is ChessPiece:
+			cursor.hovering_piece = area
 			if turn_state.state == 'ToPick':
 				clear_highlights()
-			if area is ChessPiece and turn_state.now_playing == area.piece_color and turn_state.state == 'ToPick':
-				cursor.hovering_piece = area
-				mark_available_moves(area)
-				pick_piece(cursor.hovering_piece)
+				if area is ChessPiece and turn_state.now_playing == area.piece_color and turn_state.state == 'ToPick':
+					mark_available_moves(area)
+					pick_piece(cursor.hovering_piece)
 
 
 func _on_Cursor_area_exited(area) -> void:
