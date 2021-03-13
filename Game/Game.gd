@@ -181,11 +181,11 @@ func move_piece(piece, target_real, speed_factor=0.5) -> void:
 	t.interpolate_property(piece, "global_position",
 		piece.global_position, target_real, speed_factor,
 		Tween.TRANS_LINEAR, Tween.EASE_OUT)
-	t.connect("tween_all_completed", self, "piece_done_moving")
+#	t.connect("tween_all_completed", self, "piece_done_moving")
 	t.start()
 
-func piece_done_moving():
-	print("piece done moving")
+#func piece_done_moving():
+#	print("piece done moving")
 
 func real2boardpos(real_pos: Vector2, t_size=null) -> Vector2:
 	if t_size == null:
@@ -241,13 +241,16 @@ func clear_highlights() -> void:
 			remove_child(child)
 			child.queue_free()
 
+
 func _on_Cursor_area_entered(area) -> void:
 	if !cursor.disabled:
-		if turn_state.state == 'ToPick':
-			clear_highlights()
-		if area is ChessPiece and turn_state.now_playing == area.piece_color and turn_state.state == 'ToPick':
-			cursor.hovering_piece = area
-			mark_available_moves(area)
+		if area is ChessPiece:
+			if turn_state.state == 'ToPick':
+				clear_highlights()
+			if area is ChessPiece and turn_state.now_playing == area.piece_color and turn_state.state == 'ToPick':
+				cursor.hovering_piece = area
+				mark_available_moves(area)
+				pick_piece(cursor.hovering_piece)
 
 
 func _on_Cursor_area_exited(area) -> void:
@@ -255,9 +258,14 @@ func _on_Cursor_area_exited(area) -> void:
 		if area is ChessPiece:
 			area.toggle_glow_off()
 			cursor.hovering_piece = null
-#		if turn_state.state == "ToPick":
-#			clear_highlights()
 
+
+func pick_piece(piece):
+	if turn_state.now_playing == cursor.hovering_piece.piece_color:
+		cursor.selected_piece = cursor.hovering_piece
+		cursor.selected_piece.picked_at = cursor.selected_piece.global_position
+		cursor.legal_target_positions = cursor.selected_piece.get_available_moves()
+		turn_state.player_picked()
 
 func validate_play(piece, target):
 	var captured
@@ -271,10 +279,7 @@ func validate_play(piece, target):
 	turn_state.player_played()
 	clear_highlights()
 	cursor.selected_piece.add_history(real2boardpos(cursor.selected_piece.picked_at))
-#	cursor.selected_piece.global_position = cursor.selected_piece.picked_at
 	move_piece(cursor.selected_piece, board2realpos(target), 0.2)	
-#	cursor.selected_piece.global_position = cursor.global_position
-#	cursor.selected_piece.grid_position = target
 	if cursor.selected_piece.has_method("set_moved"):
 		cursor.selected_piece.set_moved()
 	Global.register_board_state(dict_board())
@@ -304,12 +309,8 @@ func _input(event):
 	if event.is_action_pressed("accept"):
 		if turn_state.state == 'ToPick':
 			if cursor.hovering_piece:
-				if turn_state.now_playing == cursor.hovering_piece.piece_color:
-					cursor.selected_piece = cursor.hovering_piece
-					cursor.selected_piece.picked_at = cursor.selected_piece.global_position
-					cursor.legal_target_positions = cursor.selected_piece.get_available_moves()
-					turn_state.player_picked()
-
+				pick_piece(cursor.hovering_piece)
+				
 		elif turn_state.state == 'ToPlay':
 			var cursor_target = real2boardpos(cursor.global_position)
 			if cursor_target in cursor.legal_target_positions.targets:
