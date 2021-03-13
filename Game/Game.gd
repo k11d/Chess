@@ -308,29 +308,18 @@ func _input(event):
 	var touch = event as InputEventScreenTouch
 	if touch:
 		if touch.pressed:
+			var previous_pos = cursor.global_position
 			cursor.move_snapped(touch.position)
-
-		
-	if event.is_action_pressed("cancel"):
-		cancel_play()
-	if event.is_action_pressed("accept"):
-		if turn_state.state == 'ToPick':
-			if cursor.hovering_piece:
-				pick_piece(cursor.hovering_piece)
-				
-		elif turn_state.state == 'ToPlay':
-			var cursor_target = real2boardpos(cursor.global_position)
-			if cursor_target in cursor.legal_target_positions.targets:
-				validate_play(cursor.selected_piece, cursor_target)
-			else:
-				if cursor.hovering_piece and turn_state.now_playing == cursor.hovering_piece.piece_color:
-					cancel_play()
-					pick_piece(cursor.hovering_piece)
-
-
-#func _process(_delta: float) -> void:
-#	Global.register_board_state(dict_board())
-#	cursor.move_snapped(get_global_mouse_position())
-#		if cursor.selected_piece:
-##			move_piece(cursor.selected_piece, cursor.global_position, 0.1)
-#			cursor.selected_piece.global_position = cursor.global_position
+			var new_pos = cursor.global_position
+			if new_pos == previous_pos:
+				if turn_state.state == 'ToPick':
+					if cursor.hovering_piece:
+						pick_piece(cursor.hovering_piece)
+				elif turn_state.state == 'ToPlay':
+					var cursor_target = real2boardpos(cursor.global_position)
+					if cursor_target in cursor.legal_target_positions.targets:
+						validate_play(cursor.selected_piece, cursor_target)
+					else:
+						if cursor.hovering_piece and turn_state.now_playing == cursor.hovering_piece.piece_color:
+							cancel_play()
+							pick_piece(cursor.hovering_piece)
