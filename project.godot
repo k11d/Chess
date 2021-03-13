@@ -106,7 +106,7 @@ formats/zstd/compression_level=9
 
 [display]
 
-window/size/width=1200
+window/size/width=1600
 window/size/height=1000
 window/size/borderless=true
 window/vsync/vsync_via_compositor=true
