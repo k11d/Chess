@@ -6,7 +6,6 @@ onready var game := get_node('/root/Game')
 onready var hud := get_node('/root/Game/HUD') 
 
 var disabled : bool = false
-var free_mode : bool = false
 var movement_step
 var hovering_piece setget set_hovering_piece
 var selected_piece setget set_selected_piece

@@ -30,7 +30,7 @@ func _ready() -> void:
 	cursor = get_node("Cursor")
 	cursor.disabled = true
 	cursor.visible = true
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+#	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	cursor.movement_step = tile_size
 	
 	white_player = get_node("WhitePlayer")
@@ -246,11 +246,10 @@ func _on_Cursor_area_entered(area) -> void:
 	if !cursor.disabled:
 		if area is ChessPiece:
 			cursor.hovering_piece = area
-			if turn_state.state == 'ToPick':
-				clear_highlights()
-				if area is ChessPiece and turn_state.now_playing == area.piece_color and turn_state.state == 'ToPick':
-					mark_available_moves(area)
-					pick_piece(cursor.hovering_piece)
+#			if turn_state.state == 'ToPick':
+#				clear_highlights()
+#				if area is ChessPiece and turn_state.now_playing == area.piece_color and turn_state.state == 'ToPick':
+#					mark_available_moves(area)
 
 
 func _on_Cursor_area_exited(area) -> void:
@@ -266,6 +265,7 @@ func pick_piece(piece):
 		cursor.selected_piece.picked_at = cursor.selected_piece.global_position
 		cursor.legal_target_positions = cursor.selected_piece.get_available_moves()
 		turn_state.player_picked()
+		mark_available_moves(cursor.selected_piece)
 
 func validate_play(piece, target):
 	var captured
@@ -288,6 +288,7 @@ func validate_play(piece, target):
 
 func cancel_play():
 	turn_state.player_cancelled()
+	clear_highlights()
 	if cursor.selected_piece:
 		var dest = cursor.selected_piece.picked_at
 		move_piece(cursor.selected_piece, dest, 0.1)
@@ -303,6 +304,12 @@ func _input(event):
 #		randomize_game()
 #	if event.is_action_pressed("toggle_HUD"):
 #		hud.toggle_hud()
+
+	var touch = event as InputEventScreenTouch
+	if touch:
+		if touch.pressed:
+			cursor.move_snapped(touch.position)
+
 		
 	if event.is_action_pressed("cancel"):
 		cancel_play()
@@ -316,15 +323,14 @@ func _input(event):
 			if cursor_target in cursor.legal_target_positions.targets:
 				validate_play(cursor.selected_piece, cursor_target)
 			else:
-				cancel_play()
+				if cursor.hovering_piece and turn_state.now_playing == cursor.hovering_piece.piece_color:
+					cancel_play()
+					pick_piece(cursor.hovering_piece)
 
 
-func _process(_delta: float) -> void:
-	Global.register_board_state(dict_board())
-	if cursor.free_mode:
-		cursor.move_freely(get_global_mouse_position())
-	else:
-		cursor.move_snapped(get_global_mouse_position())
-		if cursor.selected_piece:
-#			move_piece(cursor.selected_piece, cursor.global_position, 0.1)
-			cursor.selected_piece.global_position = cursor.global_position
+#func _process(_delta: float) -> void:
+#	Global.register_board_state(dict_board())
+#	cursor.move_snapped(get_global_mouse_position())
+#		if cursor.selected_piece:
+##			move_piece(cursor.selected_piece, cursor.global_position, 0.1)
+#			cursor.selected_piece.global_position = cursor.global_position
