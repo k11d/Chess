@@ -94,11 +94,15 @@ _global_script_class_icons={
 
 config/name="GChess"
 run/main_scene="res://Game/Game.tscn"
-config/icon="res://icon.png"
+config/icon="res://Game/assets/icon.png"
 
 [autoload]
 
 Global="*res://Game/Global.gd"
+
+[compression]
+
+formats/zstd/compression_level=9
 
 [display]
 
