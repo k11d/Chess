@@ -1,28 +1,25 @@
 extends Node2D
 
-var game_state : Dictionary 
+var board_state : Dictionary 
 
 
-func register_game_state(gm : Dictionary) -> void:
-	game_state = gm
+func register_board_state(gm : Dictionary) -> void:
+	board_state = gm
 
-func update_piece_position(piece):
-	game_state[piece.grid_position] = piece
 
 func pieces(only_color=null) -> Array:
 	var pcs := []
-	for p in game_state.values():
+	for p in board_state.values():
 		if p and only_color == null or p and only_color == p.piece_color:
 			pcs.append(p)
 	return pcs
 
 func piece_positions(only_color=null) -> Array:
 	var positions := []
-	for pos in game_state:
-		if only_color == null or game_state[pos] and only_color == game_state[pos].piece_color:
+	for pos in board_state:
+		if only_color == null or board_state[pos] and only_color == board_state[pos].piece_color:
 			positions.append(pos)
 	return positions
-
 
 
 class TurnState:

@@ -9,7 +9,8 @@ var board : Board
 var tiles := {}      	 # grid positions -> instances
 var white_player : Player
 var black_player : Player
-var cursor : Cursor = null
+export(NodePath) onready var cursor = get_node(cursor) as Cursor
+export(NodePath) onready var hud = get_node(hud) as CanvasLayer
 var turn_state : Global.TurnState
 const marker_scene : PackedScene = preload("res://Ui/Marker.tscn")
 
@@ -38,7 +39,8 @@ func _ready() -> void:
 	board = get_node("Board")
 	board.create_grid(tiles)
 	init_pieces(_start_positions)
-	Global.register_game_state(dict_game())
+	Global.register_board_state(dict_board())
+	hud.show_game_state(string_board())
 	turn_state = Global.TurnState.new()
 	cursor.disabled = false
 
@@ -102,11 +104,10 @@ func init_pieces(grid : Array):
 					black_player.add_child(piece)
 
 
-func string_game() -> Array:
+func string_rows_board() -> Array:
 	# Get a string representation of the board (like _start_positions)
 	# Example:
 	# [RNBKQBNR, PPPPPPPP, 00000000, 00000000, 00000000, 00000p00, ppppp0pp, rnbkqbnr]
-	
 	var d := {}
 	for p in white_player.get_children() + black_player.get_children():
 		if p.piece_color == 'White':
@@ -148,8 +149,15 @@ func string_game() -> Array:
 		grid_state.append(row)
 	return grid_state
 
+func string_board() -> String:
+	var rows :Array = string_rows_board()
+	var s := ""
+	for row in rows:
+		s += row + "\n"
+	return s
 
-func dict_game() -> Dictionary:
+
+func dict_board() -> Dictionary:
 	# Get a Dictionary representation of the board
 	var d := {}
 	for p in white_player.get_children():
@@ -173,8 +181,11 @@ func move_piece(piece, target_real, speed_factor=0.5) -> void:
 	t.interpolate_property(piece, "global_position",
 		piece.global_position, target_real, speed_factor,
 		Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	t.connect("tween_all_completed", self, "piece_done_moving")
 	t.start()
 
+func piece_done_moving():
+	print("piece done moving")
 
 func real2boardpos(real_pos: Vector2, t_size=null) -> Vector2:
 	if t_size == null:
@@ -244,8 +255,8 @@ func _on_Cursor_area_exited(area) -> void:
 		if area is ChessPiece:
 			area.toggle_glow_off()
 			cursor.hovering_piece = null
-		if turn_state.state == "ToPick":
-			clear_highlights()
+#		if turn_state.state == "ToPick":
+#			clear_highlights()
 
 
 func validate_play(piece, target):
@@ -260,13 +271,15 @@ func validate_play(piece, target):
 	turn_state.player_played()
 	clear_highlights()
 	cursor.selected_piece.add_history(real2boardpos(cursor.selected_piece.picked_at))
-	cursor.selected_piece.global_position = cursor.global_position
-	cursor.selected_piece.grid_position = target
+#	cursor.selected_piece.global_position = cursor.selected_piece.picked_at
+	move_piece(cursor.selected_piece, board2realpos(target), 0.2)	
+#	cursor.selected_piece.global_position = cursor.global_position
+#	cursor.selected_piece.grid_position = target
 	if cursor.selected_piece.has_method("set_moved"):
 		cursor.selected_piece.set_moved()
-	Global.update_piece_position(cursor.selected_piece)
-	cursor.selected_piece = null    
-
+	Global.register_board_state(dict_board())
+	hud.show_game_state(string_board())
+	cursor.selected_piece = null
 
 func cancel_play():
 	turn_state.player_cancelled()
@@ -281,18 +294,19 @@ func cancel_play():
 
 
 func _input(event):
-	if event.is_action_pressed("DEBUG_randomize"):
-		randomize_game()
-	if event.is_action_pressed("toggle_HUD"):
-		cursor.toggle_hud()
-	if event.is_action_pressed("cancel_picked_piece"):
+#	if event.is_action_pressed("DEBUG_randomize"):
+#		randomize_game()
+#	if event.is_action_pressed("toggle_HUD"):
+#		hud.toggle_hud()
+		
+	if event.is_action_pressed("cancel"):
 		cancel_play()
-
-	if event.is_action_pressed("pick_piece"):
+	if event.is_action_pressed("accept"):
 		if turn_state.state == 'ToPick':
 			if cursor.hovering_piece:
 				if turn_state.now_playing == cursor.hovering_piece.piece_color:
 					cursor.selected_piece = cursor.hovering_piece
+					cursor.selected_piece.picked_at = cursor.selected_piece.global_position
 			if cursor.selected_piece:
 				turn_state.player_picked()
 				cursor.selected_piece.picked_at = cursor.selected_piece.global_position
@@ -304,3 +318,14 @@ func _input(event):
 				validate_play(cursor.selected_piece, cursor_target)
 			else:
 				cancel_play()
+
+
+func _process(_delta: float) -> void:
+	Global.register_board_state(dict_board())
+	if cursor.free_mode:
+		cursor.move_freely(get_global_mouse_position())
+	else:
+		cursor.move_snapped(get_global_mouse_position())
+		if cursor.selected_piece:
+#			move_piece(cursor.selected_piece, cursor.global_position, 0.1)
+			cursor.selected_piece.global_position = cursor.global_position

@@ -100,7 +100,7 @@ func get_available_moves():
 func get_attacking_enemy(virtual_pos) -> ChessPiece:
 	var backup = grid_position
 	grid_position = virtual_pos
-	Global.update_piece_position(self)
+#	Global.update_piece_position(self)
 	var enemy_pieces
 	if piece_color == "White":
 		enemy_pieces = Global.pieces("Black")
@@ -120,5 +120,5 @@ func get_attacking_enemy(virtual_pos) -> ChessPiece:
 				attacker = enemy
 				break
 	grid_position = backup
-	Global.update_piece_position(self)
+#	Global.update_piece_position(self)
 	return attacker
