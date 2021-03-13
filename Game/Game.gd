@@ -308,8 +308,9 @@ func _input(event):
 	var touch = event as InputEventScreenTouch
 	if touch:
 		if touch.pressed:
+			var touch_position = touch.position + tile_size / 2
 			var previous_pos = cursor.global_position
-			cursor.move_snapped(touch.position)
+			cursor.move_snapped(touch_position)
 			var new_pos = cursor.global_position
 			if new_pos == previous_pos:
 				if turn_state.state == 'ToPick':
