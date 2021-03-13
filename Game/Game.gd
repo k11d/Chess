@@ -260,12 +260,13 @@ func _on_Cursor_area_exited(area) -> void:
 
 
 func pick_piece(piece):
-	if turn_state.now_playing == cursor.hovering_piece.piece_color:
-		cursor.selected_piece = cursor.hovering_piece
-		cursor.selected_piece.picked_at = cursor.selected_piece.global_position
-		cursor.legal_target_positions = cursor.selected_piece.get_available_moves()
-		turn_state.player_picked()
-		mark_available_moves(cursor.selected_piece)
+#	if turn_state.now_playing == cursor.hovering_piece.piece_color:
+	cursor.selected_piece = piece
+	cursor.selected_piece.picked_at = cursor.selected_piece.global_position
+	cursor.legal_target_positions = cursor.selected_piece.get_available_moves()
+	turn_state.player_picked()
+	mark_available_moves(cursor.selected_piece)
+
 
 func validate_play(piece, target):
 	var captured
@@ -285,6 +286,7 @@ func validate_play(piece, target):
 	Global.register_board_state(dict_board())
 	hud.show_game_state(string_board())
 	cursor.selected_piece = null
+
 
 func cancel_play():
 	turn_state.player_cancelled()
@@ -308,16 +310,18 @@ func _input(event):
 	var touch = event as InputEventScreenTouch
 	if touch:
 		if touch.pressed:
-			var touch_position = touch.position + tile_size / 2
-			var previous_pos = cursor.global_position
-			cursor.move_snapped(touch_position)
-			var new_pos = cursor.global_position
+			print(touch.position)
+			var previous_pos = real2boardpos(cursor.global_position)
+			cursor.move_snapped(touch.position + tile_size / 2.0)
+			var new_pos = real2boardpos(cursor.global_position)
+			cursor.hovering_piece = Global.piece_at(new_pos)
 			if new_pos == previous_pos:
 				if turn_state.state == 'ToPick':
-					if cursor.hovering_piece:
+					if cursor.hovering_piece and cursor.hovering_piece.piece_color == turn_state.now_playing:
+						cancel_play()
 						pick_piece(cursor.hovering_piece)
-				elif turn_state.state == 'ToPlay':
-					var cursor_target = real2boardpos(cursor.global_position)
+				if turn_state.state == 'ToPlay':
+					var cursor_target = new_pos
 					if cursor_target in cursor.legal_target_positions.targets:
 						validate_play(cursor.selected_piece, cursor_target)
 					else:

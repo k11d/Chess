@@ -22,6 +22,14 @@ func piece_positions(only_color=null) -> Array:
 	return positions
 
 
+func piece_at(grid_pos: Vector2) -> ChessPiece:
+	var piece = null
+	for p in pieces():
+		if p.grid_position == grid_pos:
+			piece  = p
+			break
+	return piece
+
 class TurnState:
 	
 	var now_playing

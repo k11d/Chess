@@ -31,10 +31,3 @@ func set_mode(m):
 			$White.visible = false
 
 
-func _on_Tile_mouse_entered() -> void:
-	var gp = get_parent().closest_tile(get_global_mouse_position())
-	print("mouse entered position: ", gp)
-
-func _on_Tile_mouse_exited() -> void:
-	var gp = get_parent().closest_tile(get_global_mouse_position())
-	print("mouse exited position: ", gp)

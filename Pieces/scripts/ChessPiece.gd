@@ -8,6 +8,7 @@ export(NodePath) onready var sprite = get_node(sprite) as Sprite
 export(NodePath) onready var glow = get_node(glow) as Sprite
 export(NodePath) onready var anim_player = get_node(anim_player) as AnimationPlayer
 
+
 var grid_position : Vector2
 var glowing : bool = false
 var enemy_player : Node
