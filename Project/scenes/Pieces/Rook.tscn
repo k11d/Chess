@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/images/rook.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/rook_n.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/rook_glow.png" type="Texture" id=3]
+[ext_resource path="res://scripts/Pieces/Rook.gd" type="Script" id=4]
+[ext_resource path="res://scenes/Pieces/ChessPiece.tscn" type="PackedScene" id=5]
+
+[node name="Rook" instance=ExtResource( 5 )]
+script = ExtResource( 4 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="0"]
+position = Vector2( 0, 2 )
+polygon = PoolVector2Array( -21.5, -58.9, -18.8, -45.5, -15.2, -45.5, -12.2, -61.5, 12.2, -61.5, 15.2, -45.5, 18.8, -45.5, 21.8, -61.5, 45.3, -61.5, 48.5, -58.3, 48.5, -16.7, 38.3, -6.5, 32.5, -6.5, 32.5, 9.5, 42.6, 26.5, 43.3, 26.5, 53.5, 36.7, 53.5, 58.5, -53.5, 58.5, -53.5, 36.6, -43.5, 27.6, -43.5, 25.8, -32.5, 10.8, -32.5, -5.8, -39.5, -6.8, -39.5, -8.6, -47.5, -15.6, -47.5, -37.5, -46.5, -58.5, -46.5, -61.5, -21.5, -61.5 )
+
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+offset = Vector2( 0, 2 )
+
+[node name="Glow" parent="." index="2"]
+visible = false
+texture = ExtResource( 3 )
+offset = Vector2( 0, 2 )

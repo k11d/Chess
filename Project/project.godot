@@ -1,0 +1,112 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "ChessPiece",
+"class": "Bishop",
+"language": "GDScript",
+"path": "res://scripts/Pieces/Bishop.gd"
+}, {
+"base": "Area2D",
+"class": "Brick",
+"language": "GDScript",
+"path": "res://scripts/Board/Brick.gd"
+}, {
+"base": "Brick",
+"class": "BrickBlack",
+"language": "GDScript",
+"path": "res://scripts/Board/BrickBlack.gd"
+}, {
+"base": "Brick",
+"class": "BrickWhite",
+"language": "GDScript",
+"path": "res://scripts/Board/BrickWhite.gd"
+}, {
+"base": "Area2D",
+"class": "ChessPiece",
+"language": "GDScript",
+"path": "res://scripts/Pieces/ChessPiece.gd"
+}, {
+"base": "Node",
+"class": "Game",
+"language": "GDScript",
+"path": "res://scripts/Game/Game.gd"
+}, {
+"base": "ChessPiece",
+"class": "King",
+"language": "GDScript",
+"path": "res://scripts/Pieces/King.gd"
+}, {
+"base": "ChessPiece",
+"class": "Knight",
+"language": "GDScript",
+"path": "res://scripts/Pieces/Knight.gd"
+}, {
+"base": "ChessPiece",
+"class": "Pawn",
+"language": "GDScript",
+"path": "res://scripts/Pieces/Pawn.gd"
+}, {
+"base": "ChessPiece",
+"class": "Queen",
+"language": "GDScript",
+"path": "res://scripts/Pieces/Queen.gd"
+}, {
+"base": "ChessPiece",
+"class": "Rook",
+"language": "GDScript",
+"path": "res://scripts/Pieces/Rook.gd"
+}, {
+"base": "Node",
+"class": "Targets",
+"language": "GDScript",
+"path": "res://scripts/Targets.gd"
+} ]
+_global_script_class_icons={
+"Bishop": "res://assets/images/bishop.png",
+"Brick": "",
+"BrickBlack": "",
+"BrickWhite": "",
+"ChessPiece": "",
+"Game": "",
+"King": "res://assets/images/king.png",
+"Knight": "res://assets/images/knight.png",
+"Pawn": "res://assets/images/pawn.png",
+"Queen": "res://assets/images/queen.png",
+"Rook": "res://assets/images/rook.png",
+"Targets": ""
+}
+
+[application]
+
+config/name="GChess"
+run/main_scene="res://scenes/Game/Game.tscn"
+config/icon="res://assets/images/icon.png"
+
+[autoload]
+
+Global="*res://scripts/Global.gd"
+
+[display]
+
+window/size/height=1024
+
+[layer_names]
+
+2d_physics/layer_1="Board"
+2d_physics/layer_2="Pieces"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

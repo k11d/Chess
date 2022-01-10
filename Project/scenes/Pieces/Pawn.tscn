@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/images/pawn_n.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/pawn_glow.png" type="Texture" id=2]
+[ext_resource path="res://scenes/Pieces/ChessPiece.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/Pieces/Pawn.gd" type="Script" id=4]
+[ext_resource path="res://assets/images/pawn.png" type="Texture" id=5]
+
+[node name="Pawn" instance=ExtResource( 3 )]
+script = ExtResource( 4 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="0"]
+position = Vector2( 0, 2 )
+polygon = PoolVector2Array( 15.5, -55.5, 25.5, -47.5, 29.5, -39.1, 29.5, -26, 20.3, -9.4, 29.5, 1.8, 31.9, 13.5, 52.5, 33.7, 52.5, 58.5, -51.5, 58.5, -51.5, 32.7, -31.5, 12.7, -31.5, 11.2, -28, -1.5, -19.5, -10.2, -19.5, -10.8, -30.5, -25.8, -30.5, -38.8, -28.9, -43.5, -20.6, -54.5, -8.5, -58.8 )
+
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource( 5 )
+normal_map = ExtResource( 1 )
+offset = Vector2( 0, 2 )
+
+[node name="Glow" parent="." index="2"]
+visible = false
+texture = ExtResource( 2 )
+offset = Vector2( 0, 2 )
