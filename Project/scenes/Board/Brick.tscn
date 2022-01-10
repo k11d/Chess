@@ -7,6 +7,7 @@ extents = Vector2( 64, 64 )
 
 [node name="Brick" type="Area2D"]
 collision_mask = 2
+monitorable = false
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

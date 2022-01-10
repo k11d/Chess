@@ -16,7 +16,7 @@ func _ready() -> void:
     piece_color = get_parent().name
 
 func _to_string() -> String:
-    return piece_color + " " + piece_name + " at: " + str(self.grid_position) 
+    return piece_color + " " + piece_name + str(self.grid_position) 
 
 
 func _on_ChessPiece_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:

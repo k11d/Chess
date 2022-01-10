@@ -5,6 +5,13 @@ class_name Rook, "res://assets/images/rook.png"
 export(Vector2) var grid_position := Vector2.ZERO
 
 
+var never_moved : bool = true
+
+
+func set_moved():
+    never_moved = false
+
+
 func get_available_moves():
     var allies_positions = Global.piece_positions(piece_color)
     var enemy_positions

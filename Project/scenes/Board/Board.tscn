@@ -1,0 +1,331 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/Board/Board.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Board/BrickBlack.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Board/BrickWhite.tscn" type="PackedScene" id=4]
+
+[node name="Board" type="Node2D"]
+z_index = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="BrickWhite" parent="." instance=ExtResource( 4 )]
+position = Vector2( 64, 64 )
+monitorable = false
+
+[node name="BrickWhite2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 320, 64 )
+monitorable = false
+grid_position = Vector2( 2, 0 )
+
+[node name="BrickBlack" parent="." instance=ExtResource( 3 )]
+position = Vector2( 192, 64 )
+monitorable = false
+grid_position = Vector2( 1, 0 )
+
+[node name="BrickBlack2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 448, 64 )
+monitorable = false
+grid_position = Vector2( 3, 0 )
+
+[node name="BrickWhite3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 576, 64 )
+monitorable = false
+grid_position = Vector2( 4, 0 )
+
+[node name="BrickWhite4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 832, 64 )
+monitorable = false
+grid_position = Vector2( 6, 0 )
+
+[node name="BrickBlack3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 704, 64 )
+monitorable = false
+grid_position = Vector2( 5, 0 )
+
+[node name="BrickBlack4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 960, 64 )
+monitorable = false
+grid_position = Vector2( 7, 0 )
+
+[node name="BrickWhite9" parent="." instance=ExtResource( 4 )]
+position = Vector2( 192, 192 )
+monitorable = false
+grid_position = Vector2( 1, 1 )
+
+[node name="BrickWhite10" parent="." instance=ExtResource( 4 )]
+position = Vector2( 448, 192 )
+monitorable = false
+grid_position = Vector2( 3, 1 )
+
+[node name="BrickBlack9" parent="." instance=ExtResource( 3 )]
+position = Vector2( 320, 192 )
+monitorable = false
+grid_position = Vector2( 2, 1 )
+
+[node name="BrickBlack10" parent="." instance=ExtResource( 3 )]
+position = Vector2( 576, 192 )
+monitorable = false
+grid_position = Vector2( 4, 1 )
+
+[node name="BrickWhite11" parent="." instance=ExtResource( 4 )]
+position = Vector2( 704, 192 )
+monitorable = false
+grid_position = Vector2( 5, 1 )
+
+[node name="BrickWhite12" parent="." instance=ExtResource( 4 )]
+position = Vector2( 960, 192 )
+monitorable = false
+grid_position = Vector2( 7, 1 )
+
+[node name="BrickBlack11" parent="." instance=ExtResource( 3 )]
+position = Vector2( 832, 192 )
+monitorable = false
+grid_position = Vector2( 6, 1 )
+
+[node name="BrickBlack12" parent="." instance=ExtResource( 3 )]
+position = Vector2( 64, 192 )
+monitorable = false
+grid_position = Vector2( 0, 1 )
+
+[node name="BrickWhite13" parent="." instance=ExtResource( 4 )]
+position = Vector2( 192, 448 )
+monitorable = false
+grid_position = Vector2( 1, 3 )
+
+[node name="BrickWhite14" parent="." instance=ExtResource( 4 )]
+position = Vector2( 448, 448 )
+monitorable = false
+grid_position = Vector2( 3, 3 )
+
+[node name="BrickBlack13" parent="." instance=ExtResource( 3 )]
+position = Vector2( 320, 448 )
+monitorable = false
+grid_position = Vector2( 2, 3 )
+
+[node name="BrickBlack14" parent="." instance=ExtResource( 3 )]
+position = Vector2( 576, 448 )
+monitorable = false
+grid_position = Vector2( 4, 3 )
+
+[node name="BrickWhite15" parent="." instance=ExtResource( 4 )]
+position = Vector2( 704, 448 )
+monitorable = false
+grid_position = Vector2( 5, 3 )
+
+[node name="BrickWhite16" parent="." instance=ExtResource( 4 )]
+position = Vector2( 960, 448 )
+monitorable = false
+grid_position = Vector2( 7, 3 )
+
+[node name="BrickBlack15" parent="." instance=ExtResource( 3 )]
+position = Vector2( 832, 448 )
+monitorable = false
+grid_position = Vector2( 6, 3 )
+
+[node name="BrickBlack16" parent="." instance=ExtResource( 3 )]
+position = Vector2( 64, 448 )
+monitorable = false
+grid_position = Vector2( 0, 3 )
+
+[node name="BrickWhite5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 64, 320 )
+monitorable = false
+grid_position = Vector2( 0, 2 )
+
+[node name="BrickWhite6" parent="." instance=ExtResource( 4 )]
+position = Vector2( 320, 320 )
+monitorable = false
+grid_position = Vector2( 2, 2 )
+
+[node name="BrickBlack5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 192, 320 )
+monitorable = false
+grid_position = Vector2( 1, 2 )
+
+[node name="BrickBlack6" parent="." instance=ExtResource( 3 )]
+position = Vector2( 448, 320 )
+monitorable = false
+grid_position = Vector2( 3, 2 )
+
+[node name="BrickWhite7" parent="." instance=ExtResource( 4 )]
+position = Vector2( 576, 320 )
+monitorable = false
+grid_position = Vector2( 4, 2 )
+
+[node name="BrickWhite8" parent="." instance=ExtResource( 4 )]
+position = Vector2( 832, 320 )
+monitorable = false
+grid_position = Vector2( 6, 2 )
+
+[node name="BrickBlack7" parent="." instance=ExtResource( 3 )]
+position = Vector2( 704, 320 )
+monitorable = false
+grid_position = Vector2( 5, 2 )
+
+[node name="BrickBlack8" parent="." instance=ExtResource( 3 )]
+position = Vector2( 960, 320 )
+monitorable = false
+grid_position = Vector2( 7, 2 )
+
+[node name="BrickWhite17" parent="." instance=ExtResource( 4 )]
+position = Vector2( 64, 576 )
+monitorable = false
+grid_position = Vector2( 0, 4 )
+
+[node name="BrickWhite18" parent="." instance=ExtResource( 4 )]
+position = Vector2( 320, 576 )
+monitorable = false
+grid_position = Vector2( 2, 4 )
+
+[node name="BrickBlack17" parent="." instance=ExtResource( 3 )]
+position = Vector2( 192, 576 )
+monitorable = false
+grid_position = Vector2( 1, 4 )
+
+[node name="BrickBlack18" parent="." instance=ExtResource( 3 )]
+position = Vector2( 448, 576 )
+monitorable = false
+grid_position = Vector2( 3, 4 )
+
+[node name="BrickWhite19" parent="." instance=ExtResource( 4 )]
+position = Vector2( 576, 576 )
+monitorable = false
+grid_position = Vector2( 4, 4 )
+
+[node name="BrickWhite20" parent="." instance=ExtResource( 4 )]
+position = Vector2( 832, 576 )
+monitorable = false
+grid_position = Vector2( 6, 4 )
+
+[node name="BrickBlack19" parent="." instance=ExtResource( 3 )]
+position = Vector2( 704, 576 )
+monitorable = false
+grid_position = Vector2( 5, 4 )
+
+[node name="BrickBlack20" parent="." instance=ExtResource( 3 )]
+position = Vector2( 960, 576 )
+monitorable = false
+grid_position = Vector2( 7, 4 )
+
+[node name="BrickWhite21" parent="." instance=ExtResource( 4 )]
+position = Vector2( 192, 704 )
+monitorable = false
+grid_position = Vector2( 1, 5 )
+
+[node name="BrickWhite22" parent="." instance=ExtResource( 4 )]
+position = Vector2( 448, 704 )
+monitorable = false
+grid_position = Vector2( 3, 5 )
+
+[node name="BrickBlack21" parent="." instance=ExtResource( 3 )]
+position = Vector2( 320, 704 )
+monitorable = false
+grid_position = Vector2( 2, 5 )
+
+[node name="BrickBlack22" parent="." instance=ExtResource( 3 )]
+position = Vector2( 576, 704 )
+monitorable = false
+grid_position = Vector2( 4, 5 )
+
+[node name="BrickWhite23" parent="." instance=ExtResource( 4 )]
+position = Vector2( 704, 704 )
+monitorable = false
+grid_position = Vector2( 5, 5 )
+
+[node name="BrickWhite24" parent="." instance=ExtResource( 4 )]
+position = Vector2( 960, 704 )
+monitorable = false
+grid_position = Vector2( 7, 5 )
+
+[node name="BrickBlack23" parent="." instance=ExtResource( 3 )]
+position = Vector2( 832, 704 )
+monitorable = false
+grid_position = Vector2( 6, 5 )
+
+[node name="BrickBlack24" parent="." instance=ExtResource( 3 )]
+position = Vector2( 64, 704 )
+monitorable = false
+grid_position = Vector2( 0, 5 )
+
+[node name="BrickWhite25" parent="." instance=ExtResource( 4 )]
+position = Vector2( 192, 960 )
+monitorable = false
+grid_position = Vector2( 1, 7 )
+
+[node name="BrickWhite26" parent="." instance=ExtResource( 4 )]
+position = Vector2( 448, 960 )
+monitorable = false
+grid_position = Vector2( 3, 7 )
+
+[node name="BrickBlack25" parent="." instance=ExtResource( 3 )]
+position = Vector2( 320, 960 )
+monitorable = false
+grid_position = Vector2( 2, 7 )
+
+[node name="BrickBlack26" parent="." instance=ExtResource( 3 )]
+position = Vector2( 576, 960 )
+monitorable = false
+grid_position = Vector2( 4, 7 )
+
+[node name="BrickWhite27" parent="." instance=ExtResource( 4 )]
+position = Vector2( 704, 960 )
+monitorable = false
+grid_position = Vector2( 5, 7 )
+
+[node name="BrickWhite28" parent="." instance=ExtResource( 4 )]
+position = Vector2( 960, 960 )
+monitorable = false
+grid_position = Vector2( 7, 7 )
+
+[node name="BrickBlack27" parent="." instance=ExtResource( 3 )]
+position = Vector2( 832, 960 )
+monitorable = false
+grid_position = Vector2( 6, 7 )
+
+[node name="BrickBlack28" parent="." instance=ExtResource( 3 )]
+position = Vector2( 64, 960 )
+monitorable = false
+grid_position = Vector2( 0, 7 )
+
+[node name="BrickWhite29" parent="." instance=ExtResource( 4 )]
+position = Vector2( 64, 832 )
+monitorable = false
+grid_position = Vector2( 0, 6 )
+
+[node name="BrickWhite30" parent="." instance=ExtResource( 4 )]
+position = Vector2( 320, 832 )
+monitorable = false
+grid_position = Vector2( 2, 6 )
+
+[node name="BrickBlack29" parent="." instance=ExtResource( 3 )]
+position = Vector2( 192, 832 )
+monitorable = false
+grid_position = Vector2( 1, 6 )
+
+[node name="BrickBlack30" parent="." instance=ExtResource( 3 )]
+position = Vector2( 448, 832 )
+monitorable = false
+grid_position = Vector2( 3, 6 )
+
+[node name="BrickWhite31" parent="." instance=ExtResource( 4 )]
+position = Vector2( 576, 832 )
+monitorable = false
+grid_position = Vector2( 4, 6 )
+
+[node name="BrickWhite32" parent="." instance=ExtResource( 4 )]
+position = Vector2( 832, 832 )
+monitorable = false
+grid_position = Vector2( 6, 6 )
+
+[node name="BrickBlack31" parent="." instance=ExtResource( 3 )]
+position = Vector2( 704, 832 )
+monitorable = false
+grid_position = Vector2( 5, 6 )
+
+[node name="BrickBlack32" parent="." instance=ExtResource( 3 )]
+position = Vector2( 960, 832 )
+monitorable = false
+grid_position = Vector2( 7, 6 )

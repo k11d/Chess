@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Pieces/Bishop.gd"
 }, {
+"base": "Node2D",
+"class": "Board",
+"language": "GDScript",
+"path": "res://scripts/Board/Board.gd"
+}, {
 "base": "Area2D",
 "class": "Brick",
 "language": "GDScript",
@@ -38,6 +43,16 @@ _global_script_classes=[ {
 "class": "Game",
 "language": "GDScript",
 "path": "res://scripts/Game/Game.gd"
+}, {
+"base": "Highlight",
+"class": "HLCustom",
+"language": "GDScript",
+"path": "res://scripts/HUD/Highlight/HLCustom.gd"
+}, {
+"base": "Area2D",
+"class": "Highlight",
+"language": "GDScript",
+"path": "res://scripts/HUD/Highlight/Highlight.gd"
 }, {
 "base": "ChessPiece",
 "class": "King",
@@ -71,11 +86,14 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Bishop": "res://assets/images/bishop.png",
+"Board": "res://assets/images/icon.png",
 "Brick": "",
-"BrickBlack": "",
-"BrickWhite": "",
+"BrickBlack": "res://assets/images/black_beveled.png",
+"BrickWhite": "res://assets/images/white_beveled.png",
 "ChessPiece": "",
 "Game": "",
+"HLCustom": "",
+"Highlight": "",
 "King": "res://assets/images/king.png",
 "Knight": "res://assets/images/knight.png",
 "Pawn": "res://assets/images/pawn.png",

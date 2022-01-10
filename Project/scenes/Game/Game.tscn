@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/Game/Game.gd" type="Script" id=1]
-[ext_resource path="res://scenes/Board/BrickWhite.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/Board/BrickBlack.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Board/Board.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Pieces/Rook.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/Pieces/Bishop.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/Pieces/Queen.tscn" type="PackedScene" id=6]
@@ -13,348 +12,106 @@
 [node name="Game" type="Node"]
 script = ExtResource( 1 )
 
-[node name="Board" type="Node2D" parent="."]
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="BrickWhite" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 64, 64 )
-monitorable = false
-
-[node name="BrickWhite2" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 320, 64 )
-monitorable = false
-
-[node name="BrickBlack" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 192, 64 )
-monitorable = false
-
-[node name="BrickBlack2" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 448, 64 )
-monitorable = false
-
-[node name="BrickWhite3" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 576, 64 )
-monitorable = false
-
-[node name="BrickWhite4" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 832, 64 )
-monitorable = false
-
-[node name="BrickBlack3" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 704, 64 )
-monitorable = false
-
-[node name="BrickBlack4" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 960, 64 )
-monitorable = false
-
-[node name="BrickWhite9" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 192, 192 )
-monitorable = false
-
-[node name="BrickWhite10" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 448, 192 )
-monitorable = false
-
-[node name="BrickBlack9" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 320, 192 )
-monitorable = false
-
-[node name="BrickBlack10" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 576, 192 )
-monitorable = false
-
-[node name="BrickWhite11" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 704, 192 )
-monitorable = false
-
-[node name="BrickWhite12" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 960, 192 )
-monitorable = false
-
-[node name="BrickBlack11" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 832, 192 )
-monitorable = false
-
-[node name="BrickBlack12" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 64, 192 )
-monitorable = false
-
-[node name="BrickWhite13" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 192, 448 )
-monitorable = false
-
-[node name="BrickWhite14" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 448, 448 )
-monitorable = false
-
-[node name="BrickBlack13" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 320, 448 )
-monitorable = false
-
-[node name="BrickBlack14" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 576, 448 )
-monitorable = false
-
-[node name="BrickWhite15" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 704, 448 )
-monitorable = false
-
-[node name="BrickWhite16" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 960, 448 )
-monitorable = false
-
-[node name="BrickBlack15" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 832, 448 )
-monitorable = false
-
-[node name="BrickBlack16" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 64, 448 )
-monitorable = false
-
-[node name="BrickWhite5" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 64, 320 )
-monitorable = false
-
-[node name="BrickWhite6" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 320, 320 )
-monitorable = false
-
-[node name="BrickBlack5" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 192, 320 )
-monitorable = false
-
-[node name="BrickBlack6" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 448, 320 )
-monitorable = false
-
-[node name="BrickWhite7" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 576, 320 )
-monitorable = false
-
-[node name="BrickWhite8" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 832, 320 )
-monitorable = false
-
-[node name="BrickBlack7" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 704, 320 )
-monitorable = false
-
-[node name="BrickBlack8" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 960, 320 )
-monitorable = false
-
-[node name="BrickWhite17" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 64, 576 )
-monitorable = false
-
-[node name="BrickWhite18" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 320, 576 )
-monitorable = false
-
-[node name="BrickBlack17" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 192, 576 )
-monitorable = false
-
-[node name="BrickBlack18" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 448, 576 )
-monitorable = false
-
-[node name="BrickWhite19" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 576, 576 )
-monitorable = false
-
-[node name="BrickWhite20" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 832, 576 )
-monitorable = false
-
-[node name="BrickBlack19" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 704, 576 )
-monitorable = false
-
-[node name="BrickBlack20" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 960, 576 )
-monitorable = false
-
-[node name="BrickWhite21" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 192, 704 )
-monitorable = false
-
-[node name="BrickWhite22" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 448, 704 )
-monitorable = false
-
-[node name="BrickBlack21" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 320, 704 )
-monitorable = false
-
-[node name="BrickBlack22" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 576, 704 )
-monitorable = false
-
-[node name="BrickWhite23" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 704, 704 )
-monitorable = false
-
-[node name="BrickWhite24" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 960, 704 )
-monitorable = false
-
-[node name="BrickBlack23" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 832, 704 )
-monitorable = false
-
-[node name="BrickBlack24" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 64, 704 )
-monitorable = false
-
-[node name="BrickWhite25" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 192, 960 )
-monitorable = false
-
-[node name="BrickWhite26" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 448, 960 )
-monitorable = false
-
-[node name="BrickBlack25" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 320, 960 )
-monitorable = false
-
-[node name="BrickBlack26" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 576, 960 )
-monitorable = false
-
-[node name="BrickWhite27" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 704, 960 )
-monitorable = false
-
-[node name="BrickWhite28" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 960, 960 )
-monitorable = false
-
-[node name="BrickBlack27" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 832, 960 )
-monitorable = false
-
-[node name="BrickBlack28" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 64, 960 )
-monitorable = false
-
-[node name="BrickWhite29" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 64, 832 )
-monitorable = false
-
-[node name="BrickWhite30" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 320, 832 )
-monitorable = false
-
-[node name="BrickBlack29" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 192, 832 )
-monitorable = false
-
-[node name="BrickBlack30" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 448, 832 )
-monitorable = false
-
-[node name="BrickWhite31" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 576, 832 )
-monitorable = false
-
-[node name="BrickWhite32" parent="Board" instance=ExtResource( 2 )]
-position = Vector2( 832, 832 )
-monitorable = false
-
-[node name="BrickBlack31" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 704, 832 )
-monitorable = false
-
-[node name="BrickBlack32" parent="Board" instance=ExtResource( 3 )]
-position = Vector2( 960, 832 )
-monitorable = false
+[node name="Board" parent="." instance=ExtResource( 2 )]
 
 [node name="Pieces" type="Node2D" parent="."]
+z_index = 3
 
 [node name="White" type="Node2D" parent="Pieces"]
 
 [node name="Rook" parent="Pieces/White" instance=ExtResource( 4 )]
 position = Vector2( 64, 960 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 0, 7 )
 
 [node name="Rook2" parent="Pieces/White" instance=ExtResource( 4 )]
 position = Vector2( 960, 960 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 7, 7 )
 
 [node name="Knight" parent="Pieces/White" instance=ExtResource( 7 )]
 position = Vector2( 192, 960 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 1, 7 )
 
 [node name="Knight2" parent="Pieces/White" instance=ExtResource( 7 )]
 position = Vector2( 832, 960 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 6, 7 )
 
 [node name="Bishop" parent="Pieces/White" instance=ExtResource( 5 )]
 position = Vector2( 320, 960 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 2, 7 )
 
 [node name="Bishop2" parent="Pieces/White" instance=ExtResource( 5 )]
 position = Vector2( 704, 960 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 5, 7 )
 
 [node name="Queen" parent="Pieces/White" instance=ExtResource( 6 )]
 position = Vector2( 448, 960 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 3, 7 )
 
 [node name="King" parent="Pieces/White" instance=ExtResource( 8 )]
 position = Vector2( 576, 960 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 4, 7 )
 
 [node name="Pawn" parent="Pieces/White" instance=ExtResource( 9 )]
 position = Vector2( 64, 832 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 0, 6 )
 
 [node name="Pawn2" parent="Pieces/White" instance=ExtResource( 9 )]
 position = Vector2( 192, 832 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 1, 6 )
 
 [node name="Pawn3" parent="Pieces/White" instance=ExtResource( 9 )]
 position = Vector2( 320, 832 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 2, 6 )
 
 [node name="Pawn4" parent="Pieces/White" instance=ExtResource( 9 )]
 position = Vector2( 448, 832 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 3, 6 )
 
 [node name="Pawn5" parent="Pieces/White" instance=ExtResource( 9 )]
 position = Vector2( 576, 832 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 4, 6 )
 
 [node name="Pawn6" parent="Pieces/White" instance=ExtResource( 9 )]
 position = Vector2( 704, 832 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 5, 6 )
 
 [node name="Pawn7" parent="Pieces/White" instance=ExtResource( 9 )]
 position = Vector2( 832, 832 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 6, 6 )
 
 [node name="Pawn8" parent="Pieces/White" instance=ExtResource( 9 )]
 position = Vector2( 960, 832 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 7, 6 )
 
@@ -362,79 +119,95 @@ grid_position = Vector2( 7, 6 )
 
 [node name="Rook" parent="Pieces/Black" instance=ExtResource( 4 )]
 position = Vector2( 64, 64 )
+z_index = 0
 collision_mask = 2147483651
 
 [node name="Rook2" parent="Pieces/Black" instance=ExtResource( 4 )]
 position = Vector2( 960, 64 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 7, 0 )
 
 [node name="Knight" parent="Pieces/Black" instance=ExtResource( 7 )]
 position = Vector2( 192, 64 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 1, 0 )
 
 [node name="Knight2" parent="Pieces/Black" instance=ExtResource( 7 )]
 position = Vector2( 832, 64 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 6, 0 )
 
 [node name="Bishop" parent="Pieces/Black" instance=ExtResource( 5 )]
 position = Vector2( 320, 64 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 2, 0 )
 
 [node name="Bishop2" parent="Pieces/Black" instance=ExtResource( 5 )]
 position = Vector2( 704, 64 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 5, 0 )
 
 [node name="Queen" parent="Pieces/Black" instance=ExtResource( 6 )]
 position = Vector2( 448, 64 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 3, 0 )
 
 [node name="King" parent="Pieces/Black" instance=ExtResource( 8 )]
 position = Vector2( 576, 64 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 4, 0 )
 
 [node name="Pawn" parent="Pieces/Black" instance=ExtResource( 9 )]
 position = Vector2( 64, 192 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 0, 1 )
 
 [node name="Pawn2" parent="Pieces/Black" instance=ExtResource( 9 )]
 position = Vector2( 192, 192 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 1, 1 )
 
 [node name="Pawn3" parent="Pieces/Black" instance=ExtResource( 9 )]
 position = Vector2( 320, 192 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 2, 1 )
 
 [node name="Pawn4" parent="Pieces/Black" instance=ExtResource( 9 )]
 position = Vector2( 448, 192 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 3, 1 )
 
 [node name="Pawn5" parent="Pieces/Black" instance=ExtResource( 9 )]
 position = Vector2( 576, 192 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 4, 1 )
 
 [node name="Pawn6" parent="Pieces/Black" instance=ExtResource( 9 )]
 position = Vector2( 704, 192 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 5, 1 )
 
 [node name="Pawn7" parent="Pieces/Black" instance=ExtResource( 9 )]
 position = Vector2( 832, 192 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 6, 1 )
 
 [node name="Pawn8" parent="Pieces/Black" instance=ExtResource( 9 )]
 position = Vector2( 960, 192 )
+z_index = 0
 collision_mask = 2147483651
 grid_position = Vector2( 7, 1 )
